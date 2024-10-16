@@ -1,0 +1,21 @@
+# General normalization with LF
+*         text=auto
+
+# Attribute settings for web-files
+*.html    text diff=html
+*.css     text diff=css
+*.js      text
+*.md      text diff=markdown
+*.svg     text
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.gif     binary
+*.ico     binary
+*.xml     text
+*.json    text
+
+# Exclude files from export
+.gitattributes  export-ignore
+.gitignore      export-ignore
+.gitkeep        export-ignore
