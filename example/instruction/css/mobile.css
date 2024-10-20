@@ -1,0 +1,129 @@
+@charset "UTF-8";
+
+/******************************************************************************************/
+/** This stylesheet extends the "basis_screen"-stylesheet especially for mobile screens. **/
+/** This stylesheet is recommended for monitors with a screen width smaller than 30 rem. **/
+/******************************************************************************************/
+
+/** Header **/
+header {
+    height: fit-content;
+    width: 100%;
+    padding: 10px;
+
+    background-color: var(--InfoBoxColor);
+
+    img {
+        display: none;
+    }
+
+    p {
+        margin-left: 50px;
+        font-size: 1.5rem;
+    }
+}
+
+/** Navigation **/
+nav {
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: -350px;
+    box-shadow: 2px 0px 10px 0px var(--NavBackgroundColor);
+    transition: all 0.7s ease-in-out;
+
+    .HideMenu {
+        display: none;
+        position: fixed;
+        top: 0px;
+        left: 300px;
+        width: 100%;
+        height: 100%;
+        z-index: 9;
+
+        ~ svg {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+
+        ~ svg:first-of-type {
+            /** Symbol to open Navigation Menu **/
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            background-color: var(--NavBackgroundColor);
+        }
+
+        ~ svg:last-of-type {
+            /** Symbol to close Navigaiton Menu **/
+            display: none;
+            position: relative;
+            left: -300px;
+            transition: all 0.7s ease-in-out;
+        }
+    }
+
+    > label {
+        display: block;
+        height: 0px;
+    }
+
+    > input:checked ~ label svg:first-of-type {
+        /* Hide Menu open symbol, if navigation is visible */
+        display: none;
+    }
+
+    > input:checked ~ label svg:last-of-type {
+        /* Show close Menu symbol, if navigation is visible */
+        display: block;
+        left: 0px;
+    }
+
+    > input:checked ~ label .HideMenu {
+        /* Place virtual target area around the navigation menu for closing the navigation menu */
+        display: block;
+    }
+}
+
+nav:has(> input:checked) {
+    left: 0px;
+    transition: all 0.7s ease-in-out;
+}
+
+/** Main text **/
+main {
+    width: 100%;
+
+    p, ul, ol, figure {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /** Chapter Headers **/
+    section article .LinkTarget {
+        position: relative;
+        bottom: 50px;
+    }
+
+    h1 {
+        padding-left: 50px;
+        position: sticky;
+        top: 0px;
+        background-color: var(--NavBackgroundColor);
+        background-image: unset;
+    }
+
+    /** Images **/
+    figure img {
+        width: 100%;
+    }
+}
+
+/** Footer **/
+footer {
+    padding: 10px;
+    background-color: var(--InfoBoxColor);
+    text-align: right;
+    line-height: 1.5;
+}
