@@ -1,0 +1,225 @@
+@charset "UTF-8";
+
+/***********************************/
+/** Style Definitions for printer **/
+/***********************************/
+
+/** Manually placed page-breaks **/
+.ManPageBreak {
+    break-before: always;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.2;
+}
+
+a {
+    text-decoration: none;
+}
+
+/** Header **/
+header {
+    padding: 0.8rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    background-image: linear-gradient(to right, var(--BackgroundColor), var(--InfoBoxColor));
+
+    img {
+        height: 10rem;
+    }
+
+    p {
+        font-size: 20pt;
+        text-align: right;
+    }
+}
+
+.ImgProduct {
+    padding: 4rem;
+    max-height: 30rem;
+}
+
+/** Navigation / Table of content **/
+nav {
+
+    input[type=checkbox] {
+        display: none;
+    }
+
+    label {
+        display: none;
+    }
+
+    h1 {
+        font-size: 16pt;
+        padding-bottom: 0.8rem;
+    }
+
+    /** Layer 1 **/
+    .NavLvl1 > li > a {
+        padding-top: 0.3rem;
+        font-size: 12pt;
+        font-weight: bold;
+    }
+
+    /** Layer 2 **/
+    .NavLvl2 > li > a {
+        padding-left: 0.8rem;
+    }
+
+    /** Numbering Chapters **/
+    .NavLvl1 {
+        counter-reset: NavLayer1;
+    }
+
+    .NavLvl1 > li > a::before {
+        counter-increment: NavLayer1;
+        content: counter(NavLayer1) " ";
+    }
+
+    .NavLvl2 {
+        counter-reset: NavLayer2;
+    }
+
+    .NavLvl2 > li > a::before {
+        counter-increment: NavLayer2;
+        content: counter(NavLayer1) "." counter(NavLayer2) " ";
+    }
+}
+
+/** Main text **/
+main {
+
+    section {
+        break-before: always;
+    }
+
+    li {
+        margin-left: 1rem;
+    }
+
+    p, li, figure {
+        padding-top: 3pt;
+        padding-bottom: 3pt;
+    }
+
+    /** Table **/
+    table {
+        break-inside: avoid;
+
+        td {
+            padding: 3pt;
+            border-style: solid;
+            border-width: 1px;
+            border-color: var(--TextColor);
+        }
+    }
+
+    /** Images **/
+    figure {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+
+        break-inside: avoid;
+
+        img {
+            width: 70%;
+        }
+    }
+
+    /** Chapter Headers **/
+    h1 {
+        font-size: 16pt;
+        padding: 2pt;
+        break-before: avoid;
+
+        div {
+            display: none;
+        }
+    }
+
+    h2 {
+        font-size: 14pt;
+        padding: 2pt;
+        break-before: avoid;
+    }
+
+    h3 {
+        font-size: 12pt;
+        padding: 2pt;
+        break-before: avoid;
+    }
+
+    /** Warnings **/
+    .Warning {
+        margin: 1rem 1.5rem;
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 10px;
+        break-inside: avoid;
+
+        > * {
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+
+        > div {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+
+            height: 1.9rem;
+            margin: 0rem 0rem 0.5rem 0rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+
+            font-size: 14pt;
+            letter-spacing: 2px;
+
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+
+            img, svg {
+                height: 1.5rem;
+                margin-right: 0.5rem;
+            }
+        }
+    }
+}
+
+/** Footer **/
+footer {
+    padding: 1rem;
+    line-height: 1.5;
+    break-after: always;
+    text-align: right;
+    background-color: var(--InfoBoxColor);
+
+    address {
+        margin-top: 2rem;
+
+        p:first-of-type {
+            font-weight: bold;
+            color: var(--NavBackgroundColor);
+        }
+    }
+}
+
+/** Hide Text-Reader **/
+aside.TextReader {
+    display: none;
+}
+
+/** Hide Link to top **/
+.LinkToStart {
+    display: none;
+}
