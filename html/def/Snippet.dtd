@@ -1,0 +1,57 @@
+<!-- Definition scheme for snippets -->
+
+<!-- Main-Element -->
+<!ELEMENT tifo (info, version+)>
+    <!ATTLIST tifo
+        guid ID #REQUIRED
+    >
+
+<!-- General Meta-Information for the snippet -->
+<!ELEMENT info (description, structure)>
+
+<!ELEMENT description (#PCDATA)>
+
+<!ELEMENT structure (level1, level2?, level3?, level4?, level5?, level6?, level7?, level8?, level9?)>
+    <!ELEMENT level1 (#PCDATA)>
+    <!ELEMENT level2 (#PCDATA)>
+    <!ELEMENT level3 (#PCDATA)>
+    <!ELEMENT level4 (#PCDATA)>
+    <!ELEMENT level5 (#PCDATA)>
+    <!ELEMENT level6 (#PCDATA)>
+    <!ELEMENT level7 (#PCDATA)>
+    <!ELEMENT level8 (#PCDATA)>
+    <!ELEMENT level9 (#PCDATA)>
+
+<!-- Definition of each version of the snippet -->
+<!ELEMENT version (content+)>
+<!ATTLIST version
+ number CDATA #REQUIRED>
+
+<!-- Content Definition for each version and a specific language--> 
+<!ELEMENT content ANY>
+<!ATTLIST content
+    lang (none | de | en) #REQUIRED
+    date CDATA #REQUIRED
+    transtate (original | pending | translated) #REQUIRED
+>
+
+<!-- Allowable HTML-Elements -->
+<!ELEMENT a ANY>
+<!ATTLIST a
+    id ID #IMPLIED
+    class CDATA #IMPLIED
+    href CDATA #REQUIRED
+    target (_self | _blank | _parent | _top | _unfencedTop) #IMPLIED
+>
+
+<!ELEMENT address ANY>
+<!ATTLIST address
+    id ID #IMPLIED
+    class CDATA #IMPLIED
+>
+
+<!ELEMENT p ANY>
+<!ATTLIST p
+    id ID #IMPLIED
+    class CDATA #IMPLIED
+>
