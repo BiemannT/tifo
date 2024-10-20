@@ -1,0 +1,104 @@
+@charset "UTF-8";
+
+/******************************************************************************************/
+/** This stylesheet extends the "basis_screen"-stylesheet especially for dektop screens. **/
+/** This stylesheet is recommended for monitors with a screen width greater than 60 rem. **/
+/******************************************************************************************/
+
+/** Header **/
+header {
+    height: 100px;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 70px;
+    padding-right: 30px;
+
+    position: fixed;
+    top: 0px;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+
+    background-image: linear-gradient(to right, var(--BackgroundColor), var(--InfoBoxColor));
+
+    img {
+        height: 80px;
+    }
+
+    p {
+        height: fit-content;
+        max-height: 80px;
+        font-size: 2rem;
+    }
+}
+
+/** Navigation **/
+nav {
+    position: fixed;
+    top: 100px;
+    bottom: 38px;
+    left: 0px;
+
+    > label {
+        /** Menü Einblendungs-Symbol nur in Mobil-Version anzeigen **/
+        display: none;
+    }
+}
+
+/** Main text **/
+main {
+    width: 100%;
+    padding-left: 400px;
+    padding-right: 100px;
+    padding-top: 100px;
+    padding-bottom: 40px;
+
+    /** Chapter Headers **/
+    section .LinkTarget {
+        position: relative;
+        bottom: 100px;
+    }
+
+    section article .LinkTarget {
+        position: relative;
+        bottom: 150px;
+    }
+
+    h1 {
+        position: sticky;
+        top: 100px;
+    }
+
+    /** Images **/
+    figure img {
+        min-width: 200px;
+        max-width: 600px;
+    }
+}
+
+/** Footer **/
+footer {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px 50px;
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+
+    background-color: var(--InfoBoxColor);
+
+    address {
+        display: none;
+    }
+}
