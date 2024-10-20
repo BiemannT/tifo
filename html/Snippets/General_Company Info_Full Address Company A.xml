@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tifo SYSTEM "../def/Snippet.dtd">
+<tifo guid="c6616209-dfb5-4594-bcb2-60b2291682d0">
+    <info>
+        <description>Full Address Company A</description>
+        <structure>
+            <level1>General</level1>
+            <level2>Company Info</level2>
+        </structure>
+    </info>
+    <version number="1">
+        <content lang="de" date="2024-10-18" transtate="original">
+            <address>
+                <p>Musterfirma GmbH</p>
+                <p>Muster Straße 1</p>
+                <p>12345 Musterstadt</p>
+                <p>Deutschland</p>
+                <p>
+                    <a href="https://www.musterfirma.de" target="_blank">www.musterfirma.de</a>
+                </p>
+                <p>
+                    <a href="tel:+49.1234.1234.0">Tel: +49 1234 1234-0</a>
+                </p>
+                <p>
+                    <a href="mailto:info@musterfirma.de">Mail: info@musterfirma.de</a>
+                </p>
+            </address>
+        </content>
+        <content lang="en" date="2024-10-20" transtate="translated">
+            <address>
+                <p>Musterfirma GmbH</p>
+                <p>Muster Straße 1</p>
+                <p>12345 Musterstadt</p>
+                <p>Germany</p>
+                <p>
+                    <a href="https://www.musterfirma.com" target="_blank">www.musterfirma.com</a>
+                </p>
+                <p>
+                    <a href="tel:+49.1234.1234.0">Tel: +49 1234 1234-0</a>
+                </p>
+                <p>
+                    <a href="mailto:info@musterfirma.com">Mail: info@musterfirma.com</a>
+                </p>
+            </address>
+        </content>
+    </version>
+</tifo>
