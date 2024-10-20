@@ -1,0 +1,136 @@
+@charset "UTF-8";
+
+/****************************************************************************************************************/
+/** In this stylesheet only main Settings are placed, which are relevant for all medias (screen and print).    **/
+/** No Box-Sizing in this stylesheet. Box sizing have to be done in seperate stylesheets for screen and print. **/
+/****************************************************************************************************************/
+
+/** Special Fonts: Roboto **/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
+
+/** Normalizing **/
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    font-weight: normal;
+    color: var(--TextColor);
+}
+
+/** Colorscheme **/
+:root {
+    --BackgroundColor: white;
+    --TextColor: black;
+    --InfoBoxColor: lightgrey;
+    --ReaderHighlightColor: antiquewhite;
+    --NavForegroundColor: white;
+    --NavBackgroundColor: rgb(116, 184, 7);
+    --NavHighlightColor: rgb(15, 170, 41);
+}
+
+/** Header **/
+header p {
+    font-weight: bold;
+}
+
+/** Navigation **/
+nav a {
+    display: block;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+/** Chapter-Headers **/
+main h1,
+main h2 {
+    font-weight: bold;
+}
+
+main h3 {
+    font-weight: bold;
+    font-style: italic;
+}
+
+/** Numbering of chapter headers **/
+main {
+    counter-reset: Layer1;
+}
+
+main h1::before {
+    counter-increment: Layer1;
+    content: counter(Layer1) " ";
+}
+
+main section {
+    counter-reset: Layer2;
+}
+
+main h2::before {
+    counter-increment: Layer2;
+    content: counter(Layer1) "." counter(Layer2) " ";
+}
+
+/** Main text **/
+main p {
+    text-align: justify;
+}
+
+main strong {
+    font-weight: bold;
+}
+
+/** Table **/
+main table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+main table th {
+    font-weight: bold;
+}
+
+main table td:first-child {
+    width: 35%;
+    background-color: var(--InfoBoxColor);
+}
+
+/** Warning Articles **/
+.Warning {
+    background-color: var(--InfoBoxColor);
+}
+
+.Warning div {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.lblDanger {
+    background-color: rgb(161, 38, 45);
+    color: white;
+}
+
+.lblWarning {
+    background-color: rgb(203, 97, 25);
+}
+
+.lblCaution {
+    background-color: rgb(232, 191, 40);
+}
+
+.lblNotice {
+    background-color: rgb(0, 72, 115);
+    color: white;
+}
