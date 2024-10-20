@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="referrer" content="no-referrer" />
+        <title>tifo</title>
+    </head>
+    <body>
+        <header></header>
+        <nav></nav>
+        <main>
+            <h1>Datenbearbeitung</h1>
+            <p>
+                Dateien auswählen
+                <input type="file" id="DataImport" multiple="" accept=".xml,text/xml" />
+            </p>
+            <div class="Output"></div>
+            <div class="Content"></div>
+        </main>
+        <footer></footer>
+        <script type="text/javascript">
+            if (window.FileList && window.FileReader) {
+                const fileSelector = document.getElementById("DataImport");
+                const OutputSelector = document.querySelector(".Output");
+                const ContentPresSelector = document.querySelector(".Content");
+                let OutputText = "Ausgewählte Dateien:<br/>";
+
+                // Event zur Verarbeitung der ausgewählten Dateien
+                fileSelector.addEventListener("change", (event) => {
+                    let fileList = event.target.files;
+                    for (let i = 0; fileList[i]!= null; i++) {
+                        OutputText += fileList[i].name + ": " + fileList[i].type + "<br/>";
+
+                        // If File-Type is text/xml try to read the file content
+                        if (fileList[i].type === "text/xml") {
+                            let fileRdr = new window.FileReader();
+                            fileRdr.readAsText(fileList[i]);
+
+                            fileRdr.addEventListener("load", (event) => {
+                                // If file is loaded
+                                const fileParser = new DOMParser();
+                                const fileContent = fileParser.parseFromString(event.target.result, "text/xml");
+
+                                // Check if Doctype is "tifo"
+                                if (fileContent.doctype.name === "tifo") {
+                                    ContentPresSelector.innerHTML = fileContent.querySelector("version:last-of-type content[lang=de]").innerHTML;
+                                } else {
+                                    alert("The content of the selected file isn't legal!");
+                                }
+
+                            });
+                        }
+                    }
+
+                    OutputSelector.innerHTML = OutputText;
+                });
+            } else {
+                alert("No Support of FileAPI!");
+            }
+        </script>
+    </body>
+</html>
