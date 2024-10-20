@@ -1,0 +1,135 @@
+@charset "UTF-8";
+
+/***********************************************************************************************/
+/** This stylesheet extends the "basis_screen"-styleshett especially for tablet screens.      **/
+/** This stylesheet is recommended for monitors with a sreen width between 30 rem and 60 rem. **/
+/***********************************************************************************************/
+
+/** Header **/
+header {
+    height: fit-content;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 70px;
+    padding-right: 30px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+
+    background-image: linear-gradient(to right, var(--BackgroundColor), var(--InfoBoxColor));
+
+    img {
+        height: 80px;
+    }
+
+    p {
+        font-size: 2rem;
+    }
+}
+
+/** Navigation **/
+nav {
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: -350px;
+    box-shadow: 2px 0px 10px 0px var(--NavBackgroundColor);
+    transition: all 0.7s ease-in-out;
+
+    .HideMenu {
+        display: none;
+        position: fixed;
+        top: 0px;
+        left: 300px;
+        width: 100%;
+        height: 100%;
+        z-index: 9;
+
+        ~ svg {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+
+        ~ svg:first-of-type {
+            /** Symbol to open Navigation Menu **/
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            background-color: var(--NavBackgroundColor);
+        }
+
+        ~ svg:last-of-type {
+            /** Symbol to close Navigation Menu **/
+            display: none;
+            position: relative;
+            left: -300px;
+            transition: all 0.7s ease-in-out;
+        }
+    }
+
+    > label {
+        display: block;
+        height: 0px;
+    }
+
+    > input:checked ~ label svg:first-of-type {
+        /** Hide Menu open symbol, if navigation is visible **/
+        display: none;
+    }
+
+    > input:checked ~ label svg:last-of-type {
+        /** Show close Menu symbol, if navigation is visible **/
+        display: block;
+        left: 0px;
+    }
+
+    > input:checked ~ label .HideMenu {
+        /** Place virtual target area around the navigation menu for closing the navigation menu **/
+        display: block;
+    }
+}
+
+nav:has(> input:checked) {
+    left: 0px;
+    transition: all 0.7s ease-in-out;
+}
+
+/** Main text **/
+main {
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    /** Chapter Headers **/
+    section article .LinkTarget {
+        position: relative;
+        bottom: 50px;
+    }
+
+    h1 {
+        position: sticky;
+        top: 0px;
+    }
+
+    /** Images **/
+    figure img {
+        min-width: 200px;
+        max-width: 600px;
+    }
+}
+
+/** Footer **/
+footer {
+    margin-top: 20px;
+    padding: 10px 30px;
+    background-color: var(--InfoBoxColor);
+    text-align: right;
+    line-height: 1.5;
+}  

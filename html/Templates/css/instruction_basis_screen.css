@@ -1,0 +1,429 @@
+@charset "UTF-8";
+
+/*****************************************************/
+/** Main settings applicable for ALL screen medias. **/
+/*****************************************************/
+
+body {
+    font-family: "Roboto", Arial, sans-serif;
+    font-size: 1rem;
+}
+
+.ImgProduct {
+    display: none;
+}
+
+/** Header **/
+header {
+
+    p {
+        text-align: right;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+/** Navigation **/
+nav {
+    width: 300px;
+    z-index: 10;
+
+    overflow-y: auto;
+    background-color: var(--NavBackgroundColor);
+
+    a {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        color: var(--NavForegroundColor);
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    a:last-of-type:hover {
+        background-color: var(--NavHighlightColor);
+    }
+
+    /** Table of contents **/
+    h1 {
+        height: 53px;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--NavForegroundColor);
+
+        border-bottom-style: solid;
+        border-bottom-width: 3px;
+        border-bottom-color: var(--NavForegroundColor);
+    }
+
+    /** Checkbox is only used to determine whether Navigation Menu is open or not **/
+    input[type="checkbox"] {
+        display: none;
+    }
+
+    svg {
+        fill: var(--NavForegroundColor);
+    }
+
+    /** First Navigation Layer **/
+    ul.NavLvl1 > li {
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        border-bottom-color: var(--NavForegroundColor);
+
+        > a {
+            padding-left: 5px;
+            padding-right: 10px;
+            margin-left: 30px;
+
+            font-size: 1.3rem;
+            font-weight: bold;        
+        }
+
+        > label svg {
+            width: 30px;
+            height: 30px;
+            padding-left: 5px;
+            padding-top: 5px;
+            padding-bottom: unset;
+            float: left;
+            cursor: pointer;
+            transition: all 0.5s ease-in-out;
+        }
+
+        input ~ ul {
+            height: 0px;
+            overflow-y: hidden;
+        }
+
+        input:checked ~ label svg {
+            /** Submenu opened **/
+            padding-top: unset;
+            padding-bottom: 5px;
+            transform: rotate(-270deg);
+            transition: all 0.5s ease-in-out;
+        }
+
+        input:checked ~ ul {
+            height: auto;
+        }
+    }
+
+    /** Second Navigation Layer **/
+    ul.NavLvl2 {
+        height: 0px;
+        overflow-y: hidden;
+
+        > li > a {
+            padding-left: 20px;
+            padding-right: 5px;
+        }
+    }
+}
+
+/** Main text **/
+main {
+
+    section {
+        max-width: 1024px;
+        padding-bottom: 10px;
+        margin: 20px auto;
+    
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: black;
+    }
+
+    p, li {
+        line-height: 1.5;
+    }
+    
+    li {
+        margin-left: 25px;
+    }
+
+    p, li, figure, table {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    /** Header content for Text-Reader **/
+    h1 div {
+        /** Place button for Text-Reader behind header **/
+        display: inline-block;
+        vertical-align: text-bottom;
+        margin-left: 10px;
+        width: 30px;
+        height: 30px;
+
+        svg {
+            cursor: pointer;
+            fill: var(--NavForegroundColor);
+        }
+    }
+
+    /** Chapter-Headers **/
+    h1 {
+        background-image: linear-gradient(to right, var(--NavBackgroundColor), var(--BackgroundColor));
+        color: var(--NavForegroundColor);
+    
+        padding: 10px;
+        font-size: 1.6rem;
+    }
+
+    h2 {
+        padding: 10px;
+        margin-top: 15px;
+        font-size: 1.4rem;    
+    }
+
+    h3 {
+        padding: 10px;
+        font-size: 1.3rem;    
+    }
+
+    /** Table **/
+    table {
+        margin-top: 5px;
+        margin-bottom: 5px;
+
+        td {
+            padding: 5px;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;    
+        }
+    }
+
+
+    /** Images **/
+    figure {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    address {
+        a::before {
+            content: url("../img/UI/Location.svg");
+            width: 24px;
+            float: left;
+            margin-right: 5px;
+            fill: var(--TextColor);
+        }
+
+        a[target=_blank]::after {
+            /** Show no special symbol, if the hyperlink targets to a new window **/
+            display: none;
+        }
+
+        a p {
+            padding: unset;
+            margin-left: 2rem;
+            font-style: italic;        
+        }
+    }
+
+    .ReaderHighlight {
+        background-color: var(--ReaderHighlightColor);
+        box-shadow: 0px 0px 20px 10px var(--ReaderHighlightColor);
+        scroll-margin-top: 200px;
+    }
+}
+
+/** Additional Special Symbols for hyperlinks **/
+a[href^=mailto]::before {
+    content: url("../img/UI/Mail.svg");
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    margin-right: 5px;
+    vertical-align: text-bottom;
+    fill: var(--TextColor);     
+}
+
+a[href^=tel]::before {
+    content: url("../img/UI/Phone.svg");
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    margin-right: 5px;
+    vertical-align: text-bottom;
+    fill: var(--TextColor);    
+}
+
+a[target=_blank]::after {
+    content: url("../img/UI/OpenInNew.svg");
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    margin-left: 5px;
+    vertical-align: text-bottom;
+    fill: var(--TextColor);
+}
+
+a[download]::after {
+    content: url("../img/UI/Download.svg");
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    margin-left: 5px;
+    vertical-align: text-bottom;
+    fill: var(--TextColor);
+}
+
+/** Warnings **/
+.Warning {
+    margin: 10px 20px;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+
+    > * {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    > div {
+        height: 50px;
+        margin: 0px 0px 10px 0px;
+        padding-left: 20px;
+        padding-right: 20px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+
+        img, svg {
+            height: 30px;
+            margin-right: 10px;
+        }
+    }
+
+    strong {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 1.15rem;
+    }
+}
+
+/** Footer **/
+footer {
+    z-index: 3;
+
+    address {
+        margin-top: 20px;
+
+        p:first-of-type {
+            font-weight: bold;
+            color: var(--NavBackgroundColor);
+        }
+    }
+
+}
+
+.LinkToStart {
+    width: 35px;
+    position: fixed;
+    bottom: 50px;
+    right: 10px;
+    padding: 5px;
+    z-index: 3;
+    background-color: var(--InfoBoxColor);
+    fill: var(--TextColor);
+
+}
+
+/** Text-Reader Menu **/
+aside.TextReader {
+    position: fixed;
+    width: 300px;
+    bottom: -300px;
+    left: calc(50% - 150px);
+    z-index: 2;
+
+    background-color: var(--NavBackgroundColor);
+    box-shadow: 0px 0px 30px 0px var(--NavBackgroundColor);
+    color: var(--NavForegroundColor);
+    transition: all 0.7s ease-in-out;
+
+    > div {
+        height: 60px;
+        padding-left: 20px;
+        padding-right: 20px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    > div.TextReaderProp {
+        height: 0px;
+        border-bottom-style: solid;
+        border-bottom-width: 0px;
+        border-bottom-color: var(--NavForegroundColor);
+        overflow-y: hidden;
+
+        transition: all 0.7s ease-in;
+    }
+
+    svg {
+        display: block;
+        width: 30px;
+        height: 30px;
+        fill: var(--NavForegroundColor);
+    }
+
+    svg.ReaderPlay,
+    svg.ReaderPause,
+    svg.ReaderStop,
+    label svg {
+        /** Buttons **/
+        cursor: pointer;
+    }
+
+    svg.ReaderPause {
+        /** Pause-Button invisible at startup. Button will be displayed when the Text-Reader starts reading. **/
+        display: none;
+    }
+
+    p {
+        color: var(--NavForegroundColor);
+    }
+
+    input[type="checkbox"] {
+        display: none;
+    }
+    
+    #TextReaderProperties:checked ~ div.TextReaderProp {
+        /** Settings for Text-Reader visible **/
+        height: 60px;
+        border-bottom-width: 3px;
+        transition: all 0.7s ease-in;
+    }
+
+    select {
+        height: 30px;
+        width: 100%;
+        margin-left: 20px;
+        padding: 5px;
+        border-radius: 5px;
+    }
+}
+
+aside.TextReader:has(#TextReaderVisible:checked) {
+    /** Text-Reader Menu visible **/
+    bottom: 100px;
+    transition: all 0.7s ease-in-out;
+}
