@@ -13,6 +13,7 @@
 *.gif     binary
 *.ico     binary
 *.xml     text
+*.dtd     text
 *.json    text
 
 # Exclude files from export
