@@ -11,16 +11,10 @@
 
 <!ELEMENT description (#PCDATA)>
 
-<!ELEMENT structure (level1, level2?, level3?, level4?, level5?, level6?, level7?, level8?, level9?)>
-    <!ELEMENT level1 (#PCDATA)>
-    <!ELEMENT level2 (#PCDATA)>
-    <!ELEMENT level3 (#PCDATA)>
-    <!ELEMENT level4 (#PCDATA)>
-    <!ELEMENT level5 (#PCDATA)>
-    <!ELEMENT level6 (#PCDATA)>
-    <!ELEMENT level7 (#PCDATA)>
-    <!ELEMENT level8 (#PCDATA)>
-    <!ELEMENT level9 (#PCDATA)>
+<!ELEMENT structure (level+)>
+    <!ELEMENT level (#PCDATA)>
+    <!ATTLIST level
+            number CDATA #REQUIRED>
 
 <!-- Definition of each version of the snippet -->
 <!ELEMENT version (content+)>

@@ -4,8 +4,8 @@
     <info>
         <description>Full Address Company A</description>
         <structure>
-            <level1>General</level1>
-            <level2>Company Info</level2>
+            <level number="1">General</level>
+            <level number="2">Company Info</level>
         </structure>
     </info>
     <version number="1">
