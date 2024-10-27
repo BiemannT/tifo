@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+/* Header */
+body > header {
+    height: 100px;
+
+    position: fixed;
+    left: 300px;
+    right: 0px;
+    top: 0px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    background-color: var(--NavBackgroundColor);
+}
+
+/* Navigation */
+body > nav {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+}
+
+/* Main */
+body > main {
+    position: fixed;
+    left: 300px;
+    top: 100px;
+    right: 0px;
+    bottom: 0px;
+}

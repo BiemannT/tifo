@@ -4,11 +4,192 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="referrer" content="no-referrer" />
+        <link rel="stylesheet" type="text/css" href="./css/general.css" />
+        <link rel="stylesheet" type="text/css" href="./css/TreeView.css" />
+        <link rel="stylesheet" type="text/css" href="./css/DiagSnippet.css" />
+        <link rel="stylesheet" type="text/css" href="./css/desktop.css" media="screen and (width > 30rem)" />
         <title>tifo</title>
     </head>
     <body>
-        <header></header>
-        <nav></nav>
+        <header>
+            <div class="Menu"></div>
+            <img src="./img/Logo.PNG" alt="Logo" />
+        </header>
+
+        <nav>
+            <section class="NavProject">
+                <header>
+                    <h1>Projektdetails</h1>
+                </header>
+                <ul class="PropGrid">
+                    <li>
+                        <input type="checkbox" id="NavProjGeneral" checked="" />
+                        <label for="NavProjGeneral">
+                            <svg class="UIMenuExpander" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <path class="UIMenuOpen" d="M0,200h200v-200Z" />
+                                <path class="UIMenuClosed" d="M50,0v200l150,-100Z" />
+                            </svg>
+                        </label>
+                        <table class="PropGrid">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Allgemein</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Titel</td>
+                                    <td>
+                                        <input type="text" id="ProjGeneralTitle" placeholder="Titel..." />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Sprache</td>
+                                    <td>
+                                        <select id="ProjGeneralLanguage">
+                                            <option value="de">Deutsch</option>
+                                            <option value="en">Englisch</option>
+                                            <option value="fr">Französisch</option>
+                                            <option value="it">Italienisch</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+
+                    <li>
+                        <input type="checkbox" id="NavProjVariables" checked="" />
+                        <label for="NavProjVariables">
+                            <svg class="UIMenuExpander" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <path class="UIMenuOpen" d="M0,200h200v-200Z" />
+                                <path class="UIMenuClosed" d="M50,0v200l150,-100Z" />
+                            </svg>
+                        </label>
+                        <table class="PropGrid">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Variablen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Variable 1</td>
+                                    <td>
+                                        <input type="text" id="ProjVars1" placeholder="Variable 1..." />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Variable 2</td>
+                                    <td>
+                                        <input type="text" id="ProjVars2" placeholder="Variable 2..." />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="NavCatalog">
+                <header>
+                    <h1>Textbausteine</h1>
+                    <div class="NavButton" title="Textbaustein importieren">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                            <path d="M440-200h80v-167l64 64 56-57-160-160-160 160 57 56 63-63v167ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/>
+                        </svg>
+                    </div>
+                </header>
+                <ul class="TreeView">
+                    <li>
+                        <input type="checkbox" id="NavCat1" checked="" />
+                        <label for="NavCat1">
+                            <svg class="UIMenuExpander" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <path class="UIMenuOpen" d="M0,200h200v-200Z" />
+                                <path class="UIMenuClosed" d="M50,0v200l150,-100Z" />
+                            </svg>
+                            <p>General</p>
+                        </label>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="NavCat1_1" checked="" />
+                                <label for="NavCat1_1">
+                                    <svg class="UIMenuExpander" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                        <path class="UIMenuOpen" d="M0,200h200v-200Z" />
+                                        <path class="UIMenuClosed" d="M50,0v200l150,-100Z" />
+                                    </svg>
+                                    <p>Company Info</p>
+                                </label>
+                                <ul>
+                                    <li>
+                                        <svg class="UITextSnippet" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M100,0l90,50l-90,50l-90,-50Z" />
+                                            <path d="M90,200l0,-90l-90,-50l0,90Z" />
+                                            <path d="M110,200l0,-90l90,-50l0,90Z" />
+                                        </svg>
+                                        <p ondblclick="ShowDiagSnippet(this.nextElementSibling)">Full Address Company A</p>
+                                        <tifo guid="c6616209-dfb5-4594-bcb2-60b2291682d0">
+                                            <info>
+                                                <description>Full Address Company A</description>
+                                                <structure>
+                                                    <level number="1">General</level>
+                                                    <level number="2">Company Info</level>
+                                                </structure>
+                                            </info>
+                                            <version number="1">
+                                                <content lang="de" date="2024-10-18" transtate="original">
+                                                    <address>
+                                                        <p>Musterfirma GmbH</p>
+                                                        <p>Muster Straße 1</p>
+                                                        <p>12345 Musterstadt</p>
+                                                        <p>Deutschland</p>
+                                                        <p>
+                                                            <a href="https://www.musterfirma.de" target="_blank">www.musterfirma.de</a>
+                                                        </p>
+                                                        <p>
+                                                            <a href="tel:+49.1234.1234.0">Tel: +49 1234 1234-0</a>
+                                                        </p>
+                                                        <p>
+                                                            <a href="mailto:info@musterfirma.de">Mail: info@musterfirma.de</a>
+                                                        </p>
+                                                    </address>
+                                                </content>
+                                                <content lang="en" date="2024-10-20" transtate="translated">
+                                                    <address>
+                                                        <p>Musterfirma GmbH</p>
+                                                        <p>Muster Straße 1</p>
+                                                        <p>12345 Musterstadt</p>
+                                                        <p>Germany</p>
+                                                        <p>
+                                                            <a href="https://www.musterfirma.com" target="_blank">www.musterfirma.com</a>
+                                                        </p>
+                                                        <p>
+                                                            <a href="tel:+49.1234.1234.0">Tel: +49 1234 1234-0</a>
+                                                        </p>
+                                                        <p>
+                                                            <a href="mailto:info@musterfirma.com">Mail: info@musterfirma.com</a>
+                                                        </p>
+                                                    </address>
+                                                </content>
+                                            </version>
+                                        </tifo>
+                                    </li>
+                                    <li>
+                                        <svg class="UITextSnippet" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M100,0l90,50l-90,50l-90,-50Z" />
+                                            <path d="M90,200l0,-90l-90,-50l0,90Z" />
+                                            <path d="M110,200l0,-90l90,-50l0,90Z" />
+                                        </svg>
+                                        <p>Full Address Company B</p>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </nav>
+
         <main>
             <h1>Datenbearbeitung</h1>
             <p>
@@ -18,7 +199,68 @@
             <div class="Output"></div>
             <div class="Content"></div>
         </main>
-        <footer></footer>
+
+        <dialog id="DiagEditSnippet">
+            <form method="dialog">
+                <header>
+                    <h1>Textbaustein bearbeiten</h1>
+                    <div class="DiagClose" title="Dialog schließen">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                            <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                        </svg>
+                    </div>
+                </header>
+                <fieldset>
+                    <div>
+                        <label for="DiagEditSnipTitle">Beschreibung:</label>
+                        <input type="text" name="Description" id="DiagEditSnipTitle" placeholder="Beschreibung..." autofocus="" minlength="2" maxlength="50" required="" />
+                    </div>
+                    <div>
+                        <label for="DiagEditSnipGuid">GUID:</label>
+                        <input type="text" name="Guid" id="DiagEditSnipGuid" disabled="" />
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>
+                        <p>Struktur</p>
+                        <div class="DiagButton" title="Struktur Ebene hinzufügen">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="green">
+                                <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+                            </svg>
+                        </div>
+                        <div class="DiagButton" title="Letzte Struktur Ebene entfernen">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="red">
+                                <path d="M200-440v-80h560v80H200Z"/>
+                            </svg>
+                        </div>
+                        <input type="number" name="StructLvlCount" value="0" min="0" step="1" />
+                    </legend>
+                    <div>Hauptknoten</div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>
+                        <p>Versionen</p>
+                        <div class="DiagButton" title="Neue Version anlegen">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="green">
+                                <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+                            </svg>
+                        </div>
+                    </legend>
+                </fieldset>
+
+                <fieldset>
+                    <input type="submit" value="Speichern" />
+                </fieldset>
+            </form>
+        </dialog>
+
+        <script type="text/javascript">
+            const DiagEditSnippet = document.getElementById("DiagEditSnippet");
+            DiagEditSnippet.showModal();
+        </script>
+
         <script type="text/javascript">
             if (window.FileList && window.FileReader) {
                 const fileSelector = document.getElementById("DataImport");
@@ -54,10 +296,28 @@
                     }
 
                     OutputSelector.innerHTML = OutputText;
+
+                    // Prepare Test Output-File
+                    document.getElementById("Download").addEventListener("click", (event) => {
+                        event.preventDefault();
+                    });
+
+                    const btnDownload = document.getElementById("BtnDownload");
+                    btnDownload.addEventListener("click", (event) => {
+                        let OutFileContent = [document.querySelector(".Content").innerHTML];
+                        let OutFile = new window.Blob(OutFileContent, {type: "text/xml"});
+                        document.getElementById("Download").setAttribute("href", window.URL.createObjectURL(OutFile));
+                        document.getElementById("Download").setAttribute("download", "snippet.xml");
+                        document.getElementById("Download").click();
+
+                    });
+
+                    
                 });
             } else {
                 alert("No Support of FileAPI!");
             }
         </script>
+        <script type="text/javascript" src="./js/DiagSnippet.js"></script>
     </body>
 </html>

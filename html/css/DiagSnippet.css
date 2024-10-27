@@ -1,0 +1,202 @@
+@charset "UTF-8";
+
+/**********************************************************************************/
+/** This Stylesheet specify stylings to present the dialog to edit Text-Snippets **/
+/**********************************************************************************/
+
+#DiagEditSnippet {
+    margin: auto;
+
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--NavBackgroundColor);
+    box-shadow: 5px 5px 10px gray;
+
+    form {
+        display: grid;
+        grid-template-columns: 300px 700px;
+        grid-template-rows: auto 100px 500px 100px;
+    }
+
+    header {
+        padding: 5px 20px;
+
+        grid-row: 1;
+        grid-column-start: 1;
+        grid-column-end: 3;
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        background-color: var(--NavBackgroundColor);
+        color: var(--NavForegroundColor);
+        font-size: 1.2rem;
+        letter-spacing: 0.2rem;
+        font-weight: 700;
+
+        div.DiagClose {
+            /* Close-Button */
+            margin-left: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+
+            svg {
+                height: 48px;
+                fill: var(--NavForegroundColor);
+                transition: fill 0.4s ease-out;
+            }
+        }
+
+        div.DiagClose:hover svg {
+            transition: fill 0.4s ease-in;
+            fill: var(--NavFocusedElement);
+        }
+    }
+
+    fieldset {
+
+        legend {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: flex-start;
+
+            background-color: var(--NavBackgroundColor);
+            color: var(--NavForegroundColor);
+            font-weight: 400;
+            font-size: 1rem;
+
+            > * {
+                margin-left: 7px;
+                margin-right: 7px;
+            }
+
+            div.DiagButton {
+                width: 24px;
+                height: 24px;
+                cursor: pointer;
+            }
+
+            input {
+                display: none;
+            }
+        }
+
+        input:not(input[type="submit"]):valid {
+            color: green;
+        }
+
+        input:invalid {
+            color: red;
+        }
+    }
+
+    /* Styling fieldsets inside grid */
+    fieldset:nth-of-type(1) {
+        /* Title */
+        grid-row: 2;
+        grid-column-start: 1;
+        grid-column-end: 3;
+
+        padding-top: 10px;
+
+        div {
+            font-size: 1rem;
+            height: 40px;
+
+            label {
+                height: 90%;
+                width: 20%;
+                margin-right: 10px;
+                display: inline-block;
+                text-align: end;
+            }
+
+            input {
+                height: 90%;
+                width: 70%;
+                padding-left: 10px;
+                padding-right: 10px;
+                display: inline-block;
+
+                border-style: solid;
+                border-width: 1px;
+            }
+        }
+    }
+
+    fieldset:nth-of-type(2) {
+        /* Structure */
+        grid-row: 3;
+        grid-column: 1;
+
+        padding-left: 20px;
+        padding-right: 20px;
+
+        border-top-style: solid;
+        border-top-width: 2px;
+        border-top-color: var(--NavBackgroundColor);
+
+        border-right-style: solid;
+        border-right-width: 2px;
+        border-right-color: var(--NavBackgroundColor);
+
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        border-bottom-color: var(--NavBackgroundColor);
+
+        overflow-y: auto;
+
+        div {
+            font-size: 0.9rem;
+            height: 30px;
+
+            label {
+                width: 30%;
+                height: 90%;
+                display: inline-block;
+            }
+
+            input {
+                width: 70%;
+                height: 90%;
+                padding-left: 10px;
+                padding-right: 10px;
+                display: inline-block;
+
+                border-style: solid;
+                border-width: 1px;
+            }
+        }
+    }
+
+    fieldset:nth-of-type(3) {
+        /* Versions */
+        grid-column: 3;
+        grid-column: 2;
+
+        padding-left: 20px;
+        padding-right: 20px;
+
+        border-top-style: solid;
+        border-top-width: 2px;
+        border-top-color: var(--NavBackgroundColor);
+
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        border-bottom-color: var(--NavBackgroundColor);
+
+        overflow: auto;
+    }
+
+    fieldset:nth-of-type(4) {
+        /* Submit */
+        grid-row: 4;
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+}
