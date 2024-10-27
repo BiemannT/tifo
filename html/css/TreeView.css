@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+/***********************************************************************/
+/** This Stylesheet specify stylings to present a TreeView-Data-Model **/
+/***********************************************************************/
+/** Expected HTML-Structure: **/
+/*  */
+/*  <ul class="TreeView"> */
+
+/*      <li> Place Elements of first layer here */
+
+/*          <input type="checkbox" /> Checkbox to enable expanding and collapsing of sub-layers via CSS */
+
+/*          <label> */
+/*              <svg (preferably) or img> Show Symbol for expanding feature */
+/*              <p> Name of this level </p> */
+/*          </label> */
+
+/*          <ul> */
+
+/*              <li> Place Elements of the second layer here */
+/*                  Place further sub-level with <input[type="checkbox"]>, <label>, <ul> */
+/*              </li> */
+
+/*              <li> */
+/*                  <svg or img> Place optionaly Symbols */
+/*                  <p> Name of Element </p> */
+/*                  <svg or img> Place optionaly Symbols as buttons */
+/*              </li> */
+/*          </ul> */
+/*      </li> */
+/*  </ul> */
+
+ul.TreeView {
+    list-style: none;
+
+    label {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+
+        font-weight: 400;
+        font-size: 1rem;
+
+        cursor: pointer;
+    }
+
+    li {
+        font-size: 0.8rem;
+        padding-top: 3px;
+        padding-bottom: 3px;
+
+        > svg,
+        > img {
+            /* Pictures directly inside <li> */
+            height: 15px;
+            margin-right: 5px;
+
+            ~ p {
+                display: inline-block;
+            }
+        }
+
+    }
+
+    li > ul {
+        /* Sub-Levels */
+        margin-left: 10px;
+        padding-left: 5px;
+        list-style: none;
+
+        border-left-style: dotted;
+        border-left-width: 2px;
+        border-left-color: gray;
+
+        /* Hide Sub-Level generally (Expand when checkbox is active) */
+        display: none;
+    }
+
+    input[type="checkbox"] {
+        /* Hide checkboxes generally */
+        display: none;
+    }
+
+    input[type="checkbox"]:checked ~ ul:first-of-type {
+        /* Show "expand" Sub-Level */
+        display: block;
+    }
+}
