@@ -1,0 +1,5 @@
+<svg class="UITextSnippet" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100,0l90,50l-90,50l-90,-50Z" />
+    <path d="M90,200l0,-90l-90,-50l0,90Z" />
+    <path d="M110,200l0,-90l90,-50l0,90Z" />
+</svg>

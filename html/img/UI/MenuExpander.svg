@@ -1,0 +1,4 @@
+<svg class="UIMenuExpander" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <path class="UIMenuOpen" d="M0,200h200v-200Z" />
+    <path class="UIMenuClosed" d="M50,0v200l150,-100Z" />
+</svg>
