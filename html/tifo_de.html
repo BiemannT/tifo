@@ -127,7 +127,7 @@
                                             <path d="M90,200l0,-90l-90,-50l0,90Z" />
                                             <path d="M110,200l0,-90l90,-50l0,90Z" />
                                         </svg>
-                                        <p ondblclick="ShowDiagSnippet(this.nextElementSibling)">Full Address Company A</p>
+                                        <p ondblclick="SnipDiag.ShowDiag(this.nextElementSibling)">Full Address Company A</p>
                                         <tifo guid="c6616209-dfb5-4594-bcb2-60b2291682d0">
                                             <info>
                                                 <description>Full Address Company A</description>
@@ -255,11 +255,6 @@
                 </fieldset>
             </form>
         </dialog>
-
-        <script type="text/javascript">
-            const DiagEditSnippet = document.getElementById("DiagEditSnippet");
-            DiagEditSnippet.showModal();
-        </script>
 
         <script type="text/javascript">
             if (window.FileList && window.FileReader) {
