@@ -247,17 +247,40 @@ class DialogSnippets {
             }
         });
 
-        // Set all existing textareas and header-information to readonly
-        const ExistingVersions = this.#fieldVersion.querySelectorAll("li");
-        ExistingVersions.forEach(function(currentValue, currentIndex, listObj) {
-            currentValue.querySelector("textarea").readOnly = true;
-            currentValue.querySelector("select:nth-of-type(1)").disabled = true;
-            currentValue.querySelector("select:nth-of-type(2)").disabled = true;
-            currentValue.querySelector("input[type=date]").disabled = true;
-            currentValue.querySelector("svg").classList.remove("DiagButtonActive");
-        });
+        // Set previous versions to readonly
+        this.#ToggleVersionEditable(this.#fieldVersion.querySelector("section:first-of-type"), false);
 
         this.#fieldVersion.insertBefore(NewVersionElement, this.#fieldVersion.querySelector("section:first-of-type"));
+    }
+
+    /**
+     * Toggles the editable status of the complete version content.
+     * @param {HTMLElement} versionSection The &lt;section&gt;-Element which content editable status should be toggled.
+     * @param {boolean} editable true, if the elements should be editable, otherwise false.
+     */
+    #ToggleVersionEditable(versionSection, editable) {
+        const ExistingVersions = versionSection.querySelectorAll("li");
+        
+        ExistingVersions.forEach(function(currentValue, currentIndex, listObj) {
+
+            if (editable) {
+                // Enable all elements
+                currentValue.querySelector("textarea").readOnly = false;
+                currentValue.querySelector("select:nth-of-type(1)").disabled = false;
+                currentValue.querySelector("select:nth-of-type(2)").disabled = false;
+                currentValue.querySelector("input[type=date]").disabled = false;
+                currentValue.querySelector("svg").classList.add("DiagButtonActive");
+
+            } else {
+                // Disable all elements
+                currentValue.querySelector("textarea").readOnly = true;
+                currentValue.querySelector("select:nth-of-type(1)").disabled = true;
+                currentValue.querySelector("select:nth-of-type(2)").disabled = true;
+                currentValue.querySelector("input[type=date]").disabled = true;
+                currentValue.querySelector("svg").classList.remove("DiagButtonActive");
+
+            }
+        });
     }
 
     /**
