@@ -240,6 +240,9 @@ class DialogSnippets {
             currentValue.querySelector("select:nth-of-type(1)").name = `${newName}-Lang`;
             currentValue.querySelector("select:nth-of-type(2)").name = `${newName}-Transtate`;
             currentValue.querySelector("textarea").name = newName;
+
+            // Also add event listener to the delete button
+            currentValue.querySelector("div svg").setAttribute("onclick", "SnipDiag.DeleteLanguageVersion(this.parentElement.parentElement)");
         });
 
         // Switch "translated"-mark to "pending"
