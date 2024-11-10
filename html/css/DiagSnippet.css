@@ -192,6 +192,20 @@
 
         overflow: auto;
 
+        h1 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            padding-left: 10px;
+
+            border-left-style: solid;
+            border-left-width: 10px;
+            border-left-color: var(--NavBackgroundColor);
+
+            font-size: 1.4rem;
+            font-weight: bold;
+            letter-spacing: 0.6px;
+        }
+
         section:first-of-type h1::after {
             /* Labeling newest version */
             content: " (Neueste)";
@@ -204,16 +218,44 @@
             li {
                 margin-bottom: 10px;
 
-                label {
+                div {
+                    /* Styling Header */
                     width: 100%;
                     padding-left: 40px;
                     padding-right: 20px;
                     padding-bottom: 5px;
+                    padding-top: 5px;
 
                     display: flex;
                     flex-direction: row;
                     flex-wrap: nowrap;
                     justify-content: space-between;
+
+                    background-color: var(--ButtonColor);
+
+                    select, input {
+                        height: 1.6rem;
+                        padding: 0 15px;
+                        background-color: var(--BackgroundColor);
+                    }
+
+                    svg.DiagButtonActive {
+                        height: 1.6rem;
+                        display: block;
+                        fill: var(--BackgroundColor);
+                        cursor: pointer;
+                        transition: fill 0.4s ease-out;
+                    }
+
+                    svg.DiagButtonActive:hover {
+                        fill: var(--NavFocusedElement);
+                        transition: fill 0.4s ease-in;
+                    }
+
+                    svg {
+                        /* Hide Button-svg, if class "DiagButtonActive" is not applied */
+                        display: none;
+                    }
                 }
 
                 textarea {
@@ -226,10 +268,16 @@
                     border-color: gray;
                     padding: 5px;
                     resize: vertical;
+
+                    background-color: var(--NavBackgroundColor);
+                    color: var(--NavForegroundColor);
+                    font-size: 0.9rem;
+                    outline: none;
                 }
 
                 textarea[readonly] {
                     background-color: lightgray;
+                    color: inherit;
                 }
             }
         }
