@@ -11,6 +11,18 @@ class DialogSnippets {
     #fieldVersion;
 
     #numStruct;
+
+    #languageArr = {
+            "none": "Neutral",
+            "de": "Deutsch",
+            "en": "Englisch"
+    };
+
+    #transtateArr = {
+            "original": "Original",
+            "pending": "Übersetzung ausstehend",
+            "translated": "Übersetzung"
+    };
     
     /**
      * Initialize the logic for the Snippet Dialog.
@@ -53,6 +65,11 @@ class DialogSnippets {
         // Event-Handler for changing Structure list
         this.#numStruct.addEventListener("change", () => {
             this.#SetupStructureLevels();
+        });
+
+        // Event-Handler for the the new version button
+        this.#btnNewVersion.addEventListener("click", () => {
+            this.#NewVersion();
         });
 
     }
@@ -102,6 +119,148 @@ class DialogSnippets {
     }
 
     /**
+     * This method will prepare a HTML &lt;li&gt;-Element with all necessary information.
+     * @param {number | string} indexNumber Version number will be used to name the content controls
+     * @param {string} language The abbreviation of the current content language
+     * @param {string} transtate A valid option to preselect the actual translation state
+     * @param {string} date The date of the current content. Must be in the following format: yyyy-mm-dd
+     * @param {string} content The content to be shown in the textarea field
+     * @param {boolean} active If true, the content will be presented editable
+     * @returns Returns a HTML-Element "li", which can be directly appended to the list of language-versions.
+     */
+    #CreateLanguageVersion(indexNumber, language, transtate, date, content, active) {
+        // Create main Elements
+        let listEntry = document.createElement("li");
+        let labelDiv = document.createElement("div");
+        let langSelector = document.createElement("select");
+        let langTranstate = document.createElement("select");
+        let langDate = document.createElement("input");
+        let svgDelete = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        let svgDeletePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        let VersionContent = document.createElement("textarea");
+
+        // Populate language selector
+        for (const lang in this.#languageArr) {
+            let langOption = document.createElement("option");
+            langOption.value = lang;
+            langOption.textContent = this.#languageArr[lang];
+            
+            if (language == lang) {
+                langOption.setAttribute("selected", "");
+            }
+
+            langSelector.appendChild(langOption);
+        }
+
+        // Populate Translation-State selector
+        for (const state in this.#transtateArr) {
+            let transtateOption = document.createElement("option");
+            transtateOption.value = state;
+            transtateOption.textContent = this.#transtateArr[state];
+
+            if (transtate == state) {
+                transtateOption.setAttribute("selected", "");
+            }
+
+            langTranstate.appendChild(transtateOption);
+        }
+
+        // Setup Elements
+        langSelector.name = `Version-${indexNumber}-${language}-Lang`;
+        langTranstate.name = `Version-${indexNumber}-${language}-Transtate`;
+        langDate.type = "date";
+        langDate.name = `Version-${indexNumber}-${language}-Date`;
+        langDate.required = true;
+        langDate.value = date;
+        svgDelete.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        svgDelete.setAttribute("viewBox", "0 -960 960 960");
+        svgDeletePath.setAttribute("d", "M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z");
+        VersionContent.name = `Version-${indexNumber}-${language}`;
+        VersionContent.wrap = "soft";
+        VersionContent.required = true;
+        VersionContent.innerHTML = content;
+
+        // Properties depending to active-state
+        if (active) {
+            svgDelete.classList.add("DiagButtonActive");
+
+        } else {
+            langSelector.disabled = true;
+            langTranstate.disabled = true;
+            langDate.disabled = true;
+            VersionContent.readOnly = true;
+        }
+
+        // Append childs and return the list entry element
+        svgDelete.appendChild(svgDeletePath);
+
+        labelDiv.appendChild(langSelector);
+        labelDiv.appendChild(langTranstate);
+        labelDiv.appendChild(langDate);
+        labelDiv.appendChild(svgDelete);
+
+        listEntry.appendChild(labelDiv);
+        listEntry.appendChild(VersionContent);
+
+        return listEntry;
+    }
+
+    /**
+     * This method will prepare a new version.
+     * The complete content with all languages of the last version will be cloned and added as new version.
+     * In the cloned version the translation dates will be updated to the current date.
+     * All older versions will be disabled.
+     */
+    #NewVersion() {
+        // Clone the latest version and make it as the newest version
+        const NewVersionElement = this.#fieldVersion.querySelector("section:first-of-type").cloneNode(true);
+
+        // Adapt Properties
+
+        // Version Number
+        const CountExistingVersions = Number(this.#fieldVersion.querySelectorAll("section").length);
+        NewVersionElement.querySelector("h1").textContent = `Version ${CountExistingVersions + 1}`;
+
+        // Set date of langauge versions to today
+        const NewDate = new Date();
+        const UpdateDate = NewVersionElement.querySelectorAll("input[type=date]");
+        UpdateDate.forEach(function(currentValue, currentIndex, listObj) {
+            currentValue.value = NewDate.toLocaleDateString("en-CA");
+        });
+
+        // Update names of label and textarea-fields
+        const UpdateEntries = NewVersionElement.querySelectorAll("li");
+        UpdateEntries.forEach(function(currentValue, currentIndex, listObj) {
+            const actLang = currentValue.querySelector("div select:first-of-type").value;
+            const newName = `Version-${CountExistingVersions + 1}-${actLang}`;
+            
+            currentValue.querySelector("select:nth-of-type(1)").name = `${newName}-Lang`;
+            currentValue.querySelector("select:nth-of-type(2)").name = `${newName}-Transtate`;
+            currentValue.querySelector("textarea").name = newName;
+        });
+
+        // Switch "translated"-mark to "pending"
+        const UpdateTranstate = NewVersionElement.querySelectorAll("div select:nth-of-type(2)");
+        UpdateTranstate.forEach(function(currentValue, currentIndex, listObj) {
+            if (currentValue.value == "translated") {
+                currentValue.value = "pending";
+            }
+        });
+
+        // Set all existing textareas and header-information to readonly
+        const ExistingVersions = this.#fieldVersion.querySelectorAll("li");
+        ExistingVersions.forEach(function(currentValue, currentIndex, listObj) {
+            currentValue.querySelector("textarea").readOnly = true;
+            currentValue.querySelector("select:nth-of-type(1)").disabled = true;
+            currentValue.querySelector("select:nth-of-type(2)").disabled = true;
+            currentValue.querySelector("input[type=date]").disabled = true;
+            currentValue.querySelector("svg").classList.remove("DiagButtonActive");
+        });
+
+        this.#fieldVersion.insertBefore(NewVersionElement, this.#fieldVersion.querySelector("section:first-of-type"));
+    }
+
+    /**
      * Show the content of an tifo-Block in the Snippet Dialog.
      * @param {Element} tifoData Reference to the full tifo-Block, which content should be displayed.
      */
@@ -140,60 +299,18 @@ class DialogSnippets {
             // Iterate all available languages
             let tifoVersionsLangauges = tifoVersions[i].querySelectorAll("content");
             for (let j = 0; j < tifoVersionsLangauges.length; j++) {
-                let listEntry = document.createElement("li");
-                let EntryLabel = document.createElement("label");
-                let EntryLabelLang = document.createElement("data");
-                let EntryLabelTranstate = document.createElement("data");
-                let EntryLabelDate = document.createElement("time");
-                let EntryText = document.createElement("textarea");
-
                 const TranslateLang = tifoVersionsLangauges[j].getAttribute("lang");
-                const TranslateDate = new Date(tifoVersionsLangauges[j].getAttribute("date"));
+                const TranslateDate = tifoVersionsLangauges[j].getAttribute("date");
                 const TranslateState = tifoVersionsLangauges[j].getAttribute("transtate");
 
-                EntryLabelLang.value = TranslateLang;
-                EntryLabelLang.textContent = TranslateLang;
+                if (i == 0) {
+                    // Newest Version
+                    list.appendChild(this.#CreateLanguageVersion(VersionNumber, TranslateLang, TranslateState ,TranslateDate, tifoVersionsLangauges[j].innerHTML, true));
 
-                EntryLabelTranstate.value = TranslateState;
-                switch (TranslateState) {
-                    case "original":
-                        EntryLabelTranstate.textContent = "Original";
-                        break;
-                
-                    case "pending":
-                        EntryLabelTranstate.textContent = "Übersetzung ausstehend";
-                        break;
-
-                    case "translated":
-                        EntryLabelTranstate.textContent = "Übersetzung";
-                        break;
-
-                    default:
-                        break;
+                } else {
+                    // Older Versions
+                    list.appendChild(this.#CreateLanguageVersion(VersionNumber, TranslateLang, TranslateState, TranslateDate, tifoVersionsLangauges[j].innerHTML, false));
                 }
-
-                EntryLabelDate.dateTime = tifoVersionsLangauges[j].getAttribute("date");
-                EntryLabelDate.textContent = TranslateDate.toLocaleDateString();
-
-                EntryLabel.htmlFor = `DiagEditSnipVers${VersionNumber}${TranslateLang}`;
-                EntryLabel.appendChild(EntryLabelLang);
-                EntryLabel.appendChild(EntryLabelTranstate);
-                EntryLabel.appendChild(EntryLabelDate);
-
-                EntryText.name = `Version${VersionNumber}${TranslateLang}`;
-                EntryText.id = `DiagEditSnipVers${VersionNumber}${TranslateLang}`;
-                EntryText.wrap = "soft";
-                EntryText.required = true;
-                EntryText.innerHTML = tifoVersionsLangauges[j].innerHTML;
-
-                if (i > 0) {
-                    // Set readonly for older Versions, if available
-                    EntryText.readOnly = true;
-                }
-
-                listEntry.appendChild(EntryLabel);
-                listEntry.appendChild(EntryText);
-                list.appendChild(listEntry);
             }
 
             sect.appendChild(header);
