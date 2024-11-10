@@ -39,20 +39,20 @@ class DialogSnippets {
         // Increase-Button
         this.#btnIncStruct.addEventListener("click", () => {
             this.#diagForm.StructLvlCount.stepUp();
-            SetupStructureLevels();
+            this.#SetupStructureLevels();
         });
 
         // Decrease-Button
         this.#btnDecStruct.addEventListener("click", () => {
             if (this.#diagForm.StructLvlCount.value > 0) {
                 this.#diagForm.StructLvlCount.stepDown();
-                SetupStructureLevels();
+                this.#SetupStructureLevels();
             }
         });
 
         // Event-Handler for changing Structure list
         this.#numStruct.addEventListener("change", () => {
-            SetupStructureLevels();
+            this.#SetupStructureLevels();
         });
 
     }
@@ -186,7 +186,7 @@ class DialogSnippets {
                 EntryText.required = true;
                 EntryText.innerHTML = tifoVersionsLangauges[j].innerHTML;
 
-                if (j > 0) {
+                if (i > 0) {
                     // Set readonly for older Versions, if available
                     EntryText.readOnly = true;
                 }
