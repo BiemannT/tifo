@@ -227,6 +227,10 @@
                     padding: 5px;
                     resize: vertical;
                 }
+
+                textarea[readonly] {
+                    background-color: lightgray;
+                }
             }
         }
     }
