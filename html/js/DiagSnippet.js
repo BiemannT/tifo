@@ -6,6 +6,7 @@ class DialogSnippets {
     #btnIncStruct;
     #btnDecStruct;
     #btnNewVersion;
+    #btnSave;
 
     #fieldStruct;
     #fieldVersion;
@@ -39,6 +40,7 @@ class DialogSnippets {
         this.#btnDecStruct = this.#fieldStruct.querySelector("div.DiagButton:nth-of-type(2)");
         this.#fieldVersion = this.#diagForm.querySelector("fieldset:nth-of-type(3)");
         this.#btnNewVersion = this.#fieldVersion.querySelector("div.DiagButton:nth-of-type(1)");
+        this.#btnSave = this.#diagForm.querySelector("fieldset:nth-of-type(4) a");
 
         // Setup Event Handler for Buttons
         // Logic for close dialog button
@@ -365,6 +367,25 @@ class DialogSnippets {
                 this.#ToggleVersionEditable(this.#fieldVersion.querySelector("section:first-of-type"), true);
             }
         }
+    }
+
+    SaveChanges() {
+        const tifoDoctype = document.implementation.createDocumentType("tifo", "", "../def/Snippet.dtd");
+        let SaveDoc = document.implementation.createDocument(null, "tifo", tifoDoctype);
+        
+        // Set Processing instruction
+        const xmlSetting = SaveDoc.createProcessingInstruction("xml", 'version="1.0" encoding="UTF-8"');
+        SaveDoc.insertBefore(xmlSetting, SaveDoc.firstChild);
+
+        // Append Versions
+        SaveDoc.documentElement.appendChild(this.#fieldVersion.cloneNode(true));
+
+        const serialize = new XMLSerializer();
+        let OutFileContent = [serialize.serializeToString(SaveDoc)];
+        let OutFile = new window.Blob(OutFileContent, {type: "text/xml"});
+        this.#btnSave.setAttribute("href", window.URL.createObjectURL(OutFile));
+        this.#btnSave.setAttribute("download", "snippet.xml");
+        this.#btnSave.click();
     }
 }
 
