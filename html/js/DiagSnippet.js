@@ -369,23 +369,100 @@ class DialogSnippets {
         }
     }
 
+    /**
+     * This method will export the edited snippet to a xml-file.
+     * After the succesful validation of the form, the content will be prepared for downloading the xml-file.
+     * The download will be initialized by this method.
+     * Finally the form will be closed.
+     */
     SaveChanges() {
-        const tifoDoctype = document.implementation.createDocumentType("tifo", "", "../def/Snippet.dtd");
-        let SaveDoc = document.implementation.createDocument(null, "tifo", tifoDoctype);
-        
-        // Set Processing instruction
-        const xmlSetting = SaveDoc.createProcessingInstruction("xml", 'version="1.0" encoding="UTF-8"');
-        SaveDoc.insertBefore(xmlSetting, SaveDoc.firstChild);
+        // Check Validity of form elements
+        if (this.#diagForm.reportValidity()) {
+            // Prepare XML-Document
+            const tifoDoctype = document.implementation.createDocumentType("tifo", "", "../def/Snippet.dtd");
+            let SaveDoc = document.implementation.createDocument(null, "tifo", tifoDoctype);
+            let DownloadFileName = "";
+            
+            // Set Processing instruction
+            const xmlSetting = SaveDoc.createProcessingInstruction("xml", 'version="1.0" encoding="UTF-8"');
+            SaveDoc.insertBefore(xmlSetting, SaveDoc.firstChild);
 
-        // Append Versions
-        SaveDoc.documentElement.appendChild(this.#fieldVersion.cloneNode(true));
+            // Set "guid"-attribute
+            SaveDoc.documentElement.setAttribute("guid", this.#diagForm.Guid.value);
 
-        const serialize = new XMLSerializer();
-        let OutFileContent = [serialize.serializeToString(SaveDoc)];
-        let OutFile = new window.Blob(OutFileContent, {type: "text/xml"});
-        this.#btnSave.setAttribute("href", window.URL.createObjectURL(OutFile));
-        this.#btnSave.setAttribute("download", "snippet.xml");
-        this.#btnSave.click();
+            // Set <info>-Element
+            const tifoInfo = SaveDoc.createElement("info");
+            const tifoInfoDesc = SaveDoc.createElement("description");
+            const tifoInfoStruct = SaveDoc.createElement("structure");
+            
+            tifoInfoDesc.textContent = this.#diagForm.Description.value;
+
+            // Setup <structure>
+            const tifoInfoStructLevels = this.#fieldStruct.querySelectorAll(".DiagStructLevel");
+            for (let i = 0; i < tifoInfoStructLevels.length; i++) {
+                const tifoInfoStructLvl = SaveDoc.createElement("level");
+                tifoInfoStructLvl.setAttribute("number", i + 1);
+                tifoInfoStructLvl.textContent = tifoInfoStructLevels[i].querySelector("input").value;
+
+                DownloadFileName += tifoInfoStructLevels[i].querySelector("input").value;
+                DownloadFileName += "_"
+
+                tifoInfoStruct.appendChild(tifoInfoStructLvl);
+            }
+
+            DownloadFileName += tifoInfoDesc.textContent;
+            DownloadFileName += ".xml";
+
+            tifoInfo.appendChild(tifoInfoDesc);
+            tifoInfo.appendChild(tifoInfoStruct);
+            SaveDoc.documentElement.appendChild(tifoInfo);
+
+            // Iterate Versions
+            const tifoVersions = this.#fieldVersion.querySelectorAll("section");
+            for (let i = 0; i < tifoVersions.length; i++) {
+                const tifoVers = SaveDoc.createElement("version");
+                
+                tifoVers.setAttribute("number", tifoVersions.length - i);
+
+                // Iterate languages
+                const tifoVersionsLangauges = tifoVersions[i].querySelectorAll("li");
+                for (let j = 0; j < tifoVersionsLangauges.length; j++) {
+                    const tifoVersLang = SaveDoc.createElement("content");
+                    
+                    tifoVersLang.setAttribute("lang", tifoVersionsLangauges[j].querySelector("div select:nth-of-type(1)").value);
+
+                    tifoVersLang.setAttribute("date", tifoVersionsLangauges[j].querySelector("div input[type=date]").value);
+
+                    tifoVersLang.setAttribute("transtate", tifoVersionsLangauges[j].querySelector("div select:nth-of-type(2)").value);
+
+                    // Parse content of the textarea
+                    const ContentParser = new DOMParser();
+                    const CleanContentReg = /\\n|\s{2,}/g;
+                    const tifoVersLangContent = tifoVersionsLangauges[j].querySelector("textarea").value.replace(CleanContentReg, '');
+
+                    const tifoVersLangContentParsed = ContentParser.parseFromString(tifoVersLangContent, "text/xml");
+                    
+                    tifoVersLang.appendChild(tifoVersLangContentParsed.documentElement);
+
+                    tifoVers.appendChild(tifoVersLang);
+                }
+
+                SaveDoc.documentElement.appendChild(tifoVers);
+            }
+
+            // Prepare BLOB of the prepared tifo document
+            const serialize = new XMLSerializer();
+            let OutFileContent = [this.#formatXml(serialize.serializeToString(SaveDoc))];
+            let OutFile = new window.Blob(OutFileContent, {type: "text/xml"});
+            this.#btnSave.setAttribute("href", window.URL.createObjectURL(OutFile));
+            this.#btnSave.setAttribute("download", DownloadFileName);
+            this.#btnSave.click();
+
+            // Reset the form and close the dialog
+            this.#diagForm.reset();
+            this.#diagSnip.close();
+
+        }
     }
 
     /**
