@@ -387,6 +387,39 @@ class DialogSnippets {
         this.#btnSave.setAttribute("download", "snippet.xml");
         this.#btnSave.click();
     }
+
+    /**
+     * This method will format a xml-string for a readable output.
+     * It could be used for example after serializing a document node with XMLSerializer.serializeToString() to get a pretty, readable output text.
+     * @param {string} xml XML-String to be formatted.
+     * @returns Formatted xml text with each tag in one line and indent.
+     */
+    #formatXml(xml) {
+        const PADDING = ' '.repeat(4); // set desired indent size here
+        const reg = /(>)(<)(\/*)/g;
+        let pad = 0;
+    
+        xml = xml.replace(reg, '$1\r\n$2$3');
+    
+        return xml.split('\r\n').map((node, index) => {
+            let indent = 0;
+            if (node.match(/.+<\/\w[^>]*>$/)) {  // Any text... ends with </xyz> --> typical start and end-tag in one line, with or without content text
+                indent = 0;
+            } else if (node.match(/^<\w[^>]*\/>$/)) {  // Single tag, without content --> example <img... />
+                indent = 0;
+            } else if (node.match(/^<\/\w/) && pad > 0) {  // Starts with </xyz  --> typical standalone end-tag in one line
+                pad -= 1;
+            } else if (node.match(/^<\w[^>\/]*>$/)) {  // Single start tag, without content <xyz>  --> typical stand alone start-tag in one line without content text
+                indent = 1;
+            } else {
+                indent = 0;
+            }
+    
+            pad += indent;
+    
+            return PADDING.repeat(pad - indent) + node;
+        }).join('\r\n');
+    }
 }
 
 // Initialize class
