@@ -183,7 +183,7 @@ class DialogSnippets {
         VersionContent.name = `Version-${indexNumber}-${language}`;
         VersionContent.wrap = "soft";
         VersionContent.required = true;
-        VersionContent.innerHTML = content;
+        VersionContent.innerHTML = this.#formatXml(content.replace(/\n|\s{2,}/gm, '')); // Remove all new lines and whitespaces and format the xml-text
 
         // Properties depending to active-state
         if (active) {
@@ -437,7 +437,7 @@ class DialogSnippets {
 
                     // Parse content of the textarea
                     const ContentParser = new DOMParser();
-                    const CleanContentReg = /\\n|\s{2,}/g;
+                    const CleanContentReg = /\n|\s{2,}/gm;
                     const tifoVersLangContent = tifoVersionsLangauges[j].querySelector("textarea").value.replace(CleanContentReg, '');
 
                     const tifoVersLangContentParsed = ContentParser.parseFromString(tifoVersLangContent, "text/xml");
