@@ -15,8 +15,8 @@
 
     form {
         display: grid;
-        grid-template-columns: 300px 700px;
-        grid-template-rows: auto 100px 500px 100px;
+        grid-template-columns: 300px 1200px;
+        grid-template-rows: auto 100px 600px auto;
     }
 
     header {
@@ -284,9 +284,41 @@
     }
 
     fieldset:nth-of-type(4) {
-        /* Submit */
+        /* Save- / Download-Snippet */
         grid-row: 4;
         grid-column-start: 1;
         grid-column-end: 3;
+
+        padding-right: 50px;
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: end;
+
+        svg {
+            padding-left: 30px;
+            margin-right: 10px;
+            height: 48px;
+
+            border-left-style: solid;
+            border-left-width: 5px;
+            border-left-color: var(--NavBackgroundColor);
+
+            fill: var(--TextColor);
+            cursor: pointer;
+
+            transition: fill 0.4s ease-out;
+        }
+
+        svg:hover {
+            fill: var(--NavFocusedElement);
+            transition: fill 0.4s ease-in;
+        }
+
+        a {
+            display: none;
+        }
     }
 }
