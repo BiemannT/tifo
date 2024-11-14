@@ -136,7 +136,7 @@ class DialogSnippets {
             // Remove last Structure Levels
             for (let i = ActualNumberLevels; i > NewNumberLevels; i--) {
                 const lstStruct = this.#fieldStruct.querySelector("div.DiagStructLevel:last-of-type");
-                fieldStruct.removeChild(lstStruct);
+                this.#fieldStruct.removeChild(lstStruct);
             }
         }
     }
