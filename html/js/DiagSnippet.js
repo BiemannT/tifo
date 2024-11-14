@@ -40,7 +40,7 @@ class DialogSnippets {
         this.#btnDecStruct = this.#fieldStruct.querySelector("div.DiagButton:nth-of-type(2)");
         this.#fieldVersion = this.#diagForm.querySelector("fieldset:nth-of-type(3)");
         this.#btnNewVersion = this.#fieldVersion.querySelector("div.DiagButton:nth-of-type(1)");
-        this.#btnSave = this.#diagForm.querySelector("fieldset:nth-of-type(4) a");
+        this.#btnSave = this.#diagForm.querySelector("fieldset:nth-of-type(4) svg");
 
         // Setup Event Handler for Buttons
         // Logic for close dialog button
@@ -72,6 +72,11 @@ class DialogSnippets {
         // Event-Handler for the the new version button
         this.#btnNewVersion.addEventListener("click", () => {
             this.#NewVersion();
+        });
+
+        // Event-Handler for the save/download button
+        this.#btnSave.addEventListener("click", () => {
+            this.SaveChanges();
         });
 
     }
@@ -454,9 +459,9 @@ class DialogSnippets {
             const serialize = new XMLSerializer();
             let OutFileContent = [this.#formatXml(serialize.serializeToString(SaveDoc))];
             let OutFile = new window.Blob(OutFileContent, {type: "text/xml"});
-            this.#btnSave.setAttribute("href", window.URL.createObjectURL(OutFile));
-            this.#btnSave.setAttribute("download", DownloadFileName);
-            this.#btnSave.click();
+            this.#btnSave.nextElementSibling.setAttribute("href", window.URL.createObjectURL(OutFile));
+            this.#btnSave.nextElementSibling.setAttribute("download", DownloadFileName);
+            this.#btnSave.nextElementSibling.click();
 
             // Reset the form and close the dialog
             this.#diagForm.reset();
