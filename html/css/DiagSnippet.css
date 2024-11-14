@@ -86,6 +86,12 @@
             }
         }
 
+        legend:only-child p:nth-of-type(2),
+        legend:only-child div:nth-of-type(2) {
+            /* Hide Button new language, if no version is available */
+            display: none;
+        }
+
         input:not(input[type="submit"]):valid {
             color: green;
         }
