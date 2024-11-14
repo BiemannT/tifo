@@ -238,48 +238,67 @@ class DialogSnippets {
      * All older versions will be disabled.
      */
     #NewVersion() {
-        // Clone the latest version and make it as the newest version
-        const NewVersionElement = this.#fieldVersion.querySelector("section:first-of-type").cloneNode(true);
-
-        // Adapt Properties
-
-        // Version Number
-        const CountExistingVersions = Number(this.#fieldVersion.querySelectorAll("section").length);
-        NewVersionElement.querySelector("h1").textContent = `Version ${CountExistingVersions + 1}`;
-
-        // Set date of langauge versions to today
         const NewDate = new Date();
-        const UpdateDate = NewVersionElement.querySelectorAll("input[type=date]");
-        UpdateDate.forEach(function(currentValue, currentIndex, listObj) {
-            currentValue.value = NewDate.toLocaleDateString("en-CA");
-        });
 
-        // Update names of label and textarea-fields
-        const UpdateEntries = NewVersionElement.querySelectorAll("li");
-        UpdateEntries.forEach(function(currentValue, currentIndex, listObj) {
-            const actLang = currentValue.querySelector("div select:first-of-type").value;
-            const newName = `Version-${CountExistingVersions + 1}-${actLang}`;
-            
-            currentValue.querySelector("select:nth-of-type(1)").name = `${newName}-Lang`;
-            currentValue.querySelector("select:nth-of-type(2)").name = `${newName}-Transtate`;
-            currentValue.querySelector("textarea").name = newName;
+        // Check first, if minimum one version is available
+        if (this.#fieldVersion.querySelector("section") != null) {
 
-            // Also add event listener to the delete button
-            currentValue.querySelector("div svg").setAttribute("onclick", "SnipDiag.DeleteLanguageVersion(this.parentElement.parentElement)");
-        });
+            // Clone the latest version and make it as the newest version
+            const NewVersionElement = this.#fieldVersion.querySelector("section:first-of-type").cloneNode(true);
 
-        // Switch "translated"-mark to "pending"
-        const UpdateTranstate = NewVersionElement.querySelectorAll("div select:nth-of-type(2)");
-        UpdateTranstate.forEach(function(currentValue, currentIndex, listObj) {
-            if (currentValue.value == "translated") {
-                currentValue.value = "pending";
-            }
-        });
+            // Adapt Properties
 
-        // Set previous versions to readonly
-        this.#ToggleVersionEditable(this.#fieldVersion.querySelector("section:first-of-type"), false);
+            // Version Number
+            const CountExistingVersions = Number(this.#fieldVersion.querySelectorAll("section").length);
+            NewVersionElement.querySelector("h1").textContent = `Version ${CountExistingVersions + 1}`;
 
-        this.#fieldVersion.insertBefore(NewVersionElement, this.#fieldVersion.querySelector("section:first-of-type"));
+            // Set date of langauge versions to today
+            const UpdateDate = NewVersionElement.querySelectorAll("input[type=date]");
+            UpdateDate.forEach(function(currentValue, currentIndex, listObj) {
+                currentValue.value = NewDate.toLocaleDateString("en-CA");
+            });
+
+            // Update names of label and textarea-fields
+            const UpdateEntries = NewVersionElement.querySelectorAll("li");
+            UpdateEntries.forEach(function(currentValue, currentIndex, listObj) {
+                const actLang = currentValue.querySelector("div select:first-of-type").value;
+                const newName = `Version-${CountExistingVersions + 1}-${actLang}`;
+                
+                currentValue.querySelector("select:nth-of-type(1)").name = `${newName}-Lang`;
+                currentValue.querySelector("select:nth-of-type(2)").name = `${newName}-Transtate`;
+                currentValue.querySelector("textarea").name = newName;
+
+                // Also add event listener to the delete button
+                currentValue.querySelector("div svg").setAttribute("onclick", "SnipDiag.DeleteLanguageVersion(this.parentElement.parentElement)");
+            });
+
+            // Switch "translated"-mark to "pending"
+            const UpdateTranstate = NewVersionElement.querySelectorAll("div select:nth-of-type(2)");
+            UpdateTranstate.forEach(function(currentValue, currentIndex, listObj) {
+                if (currentValue.value == "translated") {
+                    currentValue.value = "pending";
+                }
+            });
+
+            // Set previous versions to readonly
+            this.#ToggleVersionEditable(this.#fieldVersion.querySelector("section:first-of-type"), false);
+
+            this.#fieldVersion.insertBefore(NewVersionElement, this.#fieldVersion.querySelector("section:first-of-type"));
+
+        } else {
+            // If no version is available, create first version node
+            const sect = document.createElement("section");
+            const sectHeader = document.createElement("h1");
+            const sectList = document.createElement("ul");
+
+            sectHeader.textContent = "Version 1";
+
+            sectList.appendChild(this.#CreateLanguageVersion(1, "none", "original", NewDate.toLocaleDateString("en-CA"), "", true));
+
+            sect.appendChild(sectHeader);
+            sect.appendChild(sectList);
+            this.#fieldVersion.appendChild(sect);
+        }
     }
 
     /**
