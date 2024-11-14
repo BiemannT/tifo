@@ -6,6 +6,7 @@ class DialogSnippets {
     #btnIncStruct;
     #btnDecStruct;
     #btnNewVersion;
+    #btnNewLanguageVersion;
     #btnSave;
 
     #fieldStruct;
@@ -40,6 +41,7 @@ class DialogSnippets {
         this.#btnDecStruct = this.#fieldStruct.querySelector("div.DiagButton:nth-of-type(2)");
         this.#fieldVersion = this.#diagForm.querySelector("fieldset:nth-of-type(3)");
         this.#btnNewVersion = this.#fieldVersion.querySelector("div.DiagButton:nth-of-type(1)");
+        this.#btnNewLanguageVersion = this.#fieldVersion.querySelector("div.DiagButton:nth-of-type(2)");
         this.#btnSave = this.#diagForm.querySelector("fieldset:nth-of-type(4) svg");
 
         // Setup Event Handler for Buttons
@@ -72,6 +74,20 @@ class DialogSnippets {
         // Event-Handler for the the new version button
         this.#btnNewVersion.addEventListener("click", () => {
             this.#NewVersion();
+        });
+
+        // Event-Handler for the new language version button
+        this.#btnNewLanguageVersion.addEventListener("click", () => {
+            // Get required variables
+            const number = this.#fieldVersion.querySelectorAll("section ul li").length;
+            const lang = "none";
+            const state = "pending";
+            const newDate = new Date();
+            const date = newDate.toLocaleDateString("en-CA");
+            const content = this.#fieldVersion.querySelector("section ul li:first-of-type textarea").textContent;
+
+            // Create new language and append child to the ul-list
+            this.#fieldVersion.querySelector("section ul").appendChild(this.#CreateLanguageVersion(number, lang, state, date, content, true));
         });
 
         // Event-Handler for the save/download button
