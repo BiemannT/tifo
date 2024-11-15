@@ -99,6 +99,11 @@
                             <path d="M440-200h80v-167l64 64 56-57-160-160-160 160 57 56 63-63v167ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/>
                         </svg>
                     </div>
+                    <div class="NavButton" title="Neuen Textbaustein erstellen">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                            <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+                        </svg>
+                    </div>
                 </header>
                 <ul class="TreeView">
                     <li>
@@ -217,7 +222,8 @@
                     </div>
                     <div>
                         <label for="DiagEditSnipGuid">GUID:</label>
-                        <input type="text" name="Guid" id="DiagEditSnipGuid" disabled="" />
+                        <input type="text" name="Guid" id="DiagEditSnipGuid" required="" placeholder="Eindeutige ID..." />
+                        <a href="https://www.uuidgenerator.net/api/guid" target="_blank" rel="noopener noreferrer">Neue GUID abrufen</a>
                     </div>
                 </fieldset>
 
