@@ -84,10 +84,9 @@ class DialogSnippets {
             const state = "pending";
             const newDate = new Date();
             const date = newDate.toLocaleDateString("en-CA");
-            const content = this.#fieldVersion.querySelector("section ul li:first-of-type textarea").textContent;
 
             // Create new language and append child to the ul-list
-            this.#fieldVersion.querySelector("section ul").appendChild(this.#CreateLanguageVersion(number, lang, state, date, content, true));
+            this.#fieldVersion.querySelector("section ul").appendChild(this.#CreateLanguageVersion(number, lang, state, date, "", true));
         });
 
         // Event-Handler for the save/download button
@@ -105,6 +104,7 @@ class DialogSnippets {
 
         // Reset the structure levels
         this.#numStruct.value = 0;
+        this.#SetupStructureLevels();
 
         // Make GUID-field editable
         this.#diagForm.Guid.disabled = false;
@@ -157,6 +157,26 @@ class DialogSnippets {
                 this.#fieldStruct.removeChild(lstStruct);
             }
         }
+    }
+
+    /**
+     * Creates and return a new "section"-element representing a version, which can be appended to the version fieldset.
+     * @param {number | string} indexNumber Version number will be used to name the header element
+     * @returns Returns a HTML-Element "section", which can be directly append into the fieldset.
+     * Afterwards the reateLanguageVersion()-method should be called to fill the list with a language version.
+     */
+    #CreateVersion(indexNumber) {
+        // Create main Elements
+        let sect = document.createElement("section");
+        let sectHeader = document.createElement("h1");
+        let sectList = document.createElement("ul");
+
+        sectHeader.textContent = `Version ${indexNumber}`;
+
+        sect.appendChild(sectHeader);
+        sect.appendChild(sectList);
+
+        return sect;
     }
 
     /**
@@ -261,61 +281,42 @@ class DialogSnippets {
         // Check first, if minimum one version is available
         if (this.#fieldVersion.querySelector("section") != null) {
 
-            // Clone the latest version and make it as the newest version
-            const NewVersionElement = this.#fieldVersion.querySelector("section:first-of-type").cloneNode(true);
+            // Determine the new version number
+            const NewVersNumber = this.#fieldVersion.querySelectorAll("section").length + 1;
 
-            // Adapt Properties
+            // Prepare new section-element
+            const NewVersElement = this.#CreateVersion(NewVersNumber);
 
-            // Version Number
-            const CountExistingVersions = Number(this.#fieldVersion.querySelectorAll("section").length);
-            NewVersionElement.querySelector("h1").textContent = `Version ${CountExistingVersions + 1}`;
-
-            // Set date of langauge versions to today
-            const UpdateDate = NewVersionElement.querySelectorAll("input[type=date]");
-            UpdateDate.forEach(function(currentValue, currentIndex, listObj) {
-                currentValue.value = NewDate.toLocaleDateString("en-CA");
-            });
-
-            // Update names of label and textarea-fields
-            const UpdateEntries = NewVersionElement.querySelectorAll("li");
-            UpdateEntries.forEach(function(currentValue, currentIndex, listObj) {
-                const actLang = currentValue.querySelector("div select:first-of-type").value;
-                const newName = `Version-${CountExistingVersions + 1}-${actLang}`;
-                
-                currentValue.querySelector("select:nth-of-type(1)").name = `${newName}-Lang`;
-                currentValue.querySelector("select:nth-of-type(2)").name = `${newName}-Transtate`;
-                currentValue.querySelector("textarea").name = newName;
-
-                // Also add event listener to the delete button
-                currentValue.querySelector("div svg").setAttribute("onclick", "SnipDiag.DeleteLanguageVersion(this.parentElement.parentElement)");
-            });
-
-            // Switch "translated"-mark to "pending"
-            const UpdateTranstate = NewVersionElement.querySelectorAll("div select:nth-of-type(2)");
-            UpdateTranstate.forEach(function(currentValue, currentIndex, listObj) {
-                if (currentValue.value == "translated") {
-                    currentValue.value = "pending";
+            // Copy latest language version elements into the new section-element
+            const OldVersLang = this.#fieldVersion.querySelector("section:first-of-type").querySelectorAll("li");
+            for (let i = 0; i < OldVersLang.length; i++) {
+                const lang = OldVersLang[i].querySelector("div select:nth-of-type(1)").value;
+                let transtate = OldVersLang[i].querySelector("div select:nth-of-type(2)").value;
+                // Set translation state to pending, if state of copied item is translated
+                if (transtate === "translated") {
+                    transtate = "pending";
                 }
-            });
+
+                const content = OldVersLang[i].querySelector("textarea").textContent;
+
+                // Append copied version to the section element
+                NewVersElement.querySelector("ul").appendChild(this.#CreateLanguageVersion(NewVersNumber, lang, transtate, NewDate.toLocaleDateString("en-CA"), content, true));
+
+            }
 
             // Set previous versions to readonly
             this.#ToggleVersionEditable(this.#fieldVersion.querySelector("section:first-of-type"), false);
 
-            this.#fieldVersion.insertBefore(NewVersionElement, this.#fieldVersion.querySelector("section:first-of-type"));
+            // Place new version at the beginning
+            this.#fieldVersion.insertBefore(NewVersElement, this.#fieldVersion.querySelector("section:first-of-type"));
 
         } else {
             // If no version is available, create first version node
-            const sect = document.createElement("section");
-            const sectHeader = document.createElement("h1");
-            const sectList = document.createElement("ul");
+            const NewVersElement = this.#CreateVersion(1);
 
-            sectHeader.textContent = "Version 1";
+            NewVersElement.querySelector("ul").appendChild(this.#CreateLanguageVersion(1, "none", "original", NewDate.toLocaleDateString("en-CA"), "", true));
 
-            sectList.appendChild(this.#CreateLanguageVersion(1, "none", "original", NewDate.toLocaleDateString("en-CA"), "", true));
-
-            sect.appendChild(sectHeader);
-            sect.appendChild(sectList);
-            this.#fieldVersion.appendChild(sect);
+            this.#fieldVersion.appendChild(NewVersElement);
         }
     }
 
