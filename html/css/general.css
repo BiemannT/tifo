@@ -66,28 +66,21 @@ nav {
             }
 
             .NavButton {
-                margin-left: 10px;
-                background-color: var(--ButtonColor);
-                box-shadow: inset 0px 0px 4px 0px var(--NavBackgroundColor);
-                border-radius: 10px;
-                transition: all 0.3s ease-out;
+                margin-left: 5px;
+                margin-right: 5px;
 
                 svg {
                     display: block;
                     height: 2rem;
-                    padding: 2px;
                     fill: var(--NavForegroundColor);
                     cursor: pointer;
+                    transition: fill 0.4s ease-out;
                 }            
             }
 
-            .NavButton:hover {
-                background-color: var(--NavFocusedElement);
-                transition: all 0.3s ease-in-out;
-
-                svg {
-                    fill: black;
-                }
+            .NavButton:hover svg {
+                transition: fill 0.4s ease-in;
+                fill: var(--NavFocusedElement);
             }
 
         }
