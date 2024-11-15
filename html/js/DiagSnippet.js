@@ -98,6 +98,24 @@ class DialogSnippets {
     }
 
     /**
+     * Resets all data fields in the dialog form.
+     */
+    #ResetForm() {
+        this.#diagForm.reset();
+
+        // Reset the structure levels
+        this.#numStruct.value = 0;
+
+        // Make GUID-field editable
+        this.#diagForm.Guid.disabled = false;
+
+        // Cleanup existing Versions, if dialog was opened before
+        this.#fieldVersion.querySelectorAll("section").forEach(function (currentValue, currentIndex, listObj) {
+            this.removeChild(currentValue);
+        }, this.#fieldVersion);
+    }
+
+    /**
      * This private method setup the visual content of the Snippet Structure viewbox.
      * The visible levels will be adapted to the #numStruct-value.
      */
@@ -338,9 +356,17 @@ class DialogSnippets {
      * @param {Element} tifoData Reference to the full tifo-Block, which content should be displayed.
      */
     ShowDiag(tifoData) {
+        // Reset form content, if form was loaded before
+        this.#ResetForm();
+
         // Try to fetch tifo data and display the content
         this.#diagForm.Description.value = tifoData.querySelector("info description").textContent;
         this.#diagForm.Guid.value = tifoData.getAttribute("guid");
+
+        // Make GUID-field disabled, if value is available
+        if (this.#diagForm.Guid.value !== "") {
+            this.#diagForm.Guid.disabled = true;
+        }
         
         // Load Structure Info
         const StructInfo = tifoData.querySelectorAll("info structure level");
@@ -352,11 +378,6 @@ class DialogSnippets {
         }
 
         // Load Versions
-        // Cleanup existing Versions, if dialog was opened before
-        const OldVersions = this.#fieldVersion.querySelectorAll("section");
-        for (let i = 0; i < OldVersions.length; i++) {
-            this.#fieldVersion.removeChild(OldVersions[i]);
-        }
 
         // Iterate all available versions
         const tifoVersions = tifoData.querySelectorAll("version");
@@ -391,6 +412,19 @@ class DialogSnippets {
             this.#fieldVersion.appendChild(sect);
         }
 
+        this.#diagSnip.showModal();
+    }
+
+    /**
+     * Show an empty Snippet Dialog to create a new snippet.
+     */
+    ShowDiagNewSnippet() {
+        // Reset form content, if form was loaded before
+        this.#ResetForm();
+
+        // GUID field editable
+        this.#diagForm.Guid.disabled = false;
+        
         this.#diagSnip.showModal();
     }
 
@@ -541,3 +575,8 @@ class DialogSnippets {
 
 // Initialize class
 const SnipDiag = new DialogSnippets("DiagEditSnippet");
+
+// Add Event-Handler for new snippet dialog
+document.querySelector("section.NavCatalog header div:nth-of-type(2)").addEventListener("click", () => {
+    SnipDiag.ShowDiagNewSnippet();
+})
