@@ -124,14 +124,21 @@
 
             input {
                 height: 90%;
-                width: 70%;
+                width: 60%;
                 padding-left: 10px;
                 padding-right: 10px;
+                margin-right: 10px;
                 display: inline-block;
 
                 border-style: solid;
                 border-width: 1px;
             }
+
+            input:disabled ~ a {
+                display: none;
+            }
+
+
         }
     }
 
