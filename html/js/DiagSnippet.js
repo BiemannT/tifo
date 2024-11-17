@@ -513,11 +513,18 @@ class DialogSnippets {
                     // Parse content of the textarea
                     const ContentParser = new DOMParser();
                     const CleanContentReg = /\n|\s{2,}/gm;
-                    const tifoVersLangContent = tifoVersionsLangauges[j].querySelector("textarea").value.replace(CleanContentReg, '');
+                    // Add before and after the textarea content the tag <tifoContent>, because the DOMParser requires one root element
+                    // With this workaround it is possible to enter several single tags into the textarea, without a root element
+                    let tifoVersLangContent = "<tifoContent>";
+                    tifoVersLangContent += tifoVersionsLangauges[j].querySelector("textarea").value.replace(CleanContentReg, '');
+                    tifoVersLangContent += "</tifoContent>";
 
                     const tifoVersLangContentParsed = ContentParser.parseFromString(tifoVersLangContent, "text/xml");
                     
-                    tifoVersLang.appendChild(tifoVersLangContentParsed.documentElement);
+                    // Append all child nodes of <tifoContent> to the output
+                    tifoVersLangContentParsed.querySelectorAll("tifoContent > *").forEach(function(currentValue, currentIndex, listObj) {
+                        tifoVersLang.appendChild(currentValue);
+                    });
 
                     tifoVers.appendChild(tifoVersLang);
                 }
