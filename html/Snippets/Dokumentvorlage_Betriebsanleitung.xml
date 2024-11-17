@@ -33,7 +33,7 @@
                         <p>Kunde: §{tifo.uservars.customerCompanyName, title='Kunden Firmen Name'}</p>
                         <p>Serien-Nr.: §{tifo.uservars.serial, title='Serien Nummer'}</p>
                         <p>Rev. §{tifo.general.documentRevision} / §{tifo.general.documentDate}</p>
-                        <tifotarget>Vollständige Adresse des Herstellers</tifotarget>
+                        <tifotarget guid="c99f68f8-ebf6-4a01-8d00-003f128dba7b">Vollständige Adresse des Herstellers</tifotarget>
                     </footer>
                     <nav></nav>
                     <main></main>

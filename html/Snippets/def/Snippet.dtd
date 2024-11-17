@@ -33,7 +33,8 @@
 <!-- Target Node for another tifo snippet -->
 <!ELEMENT tifotarget (#PCDATA)>
 <!ATTLIST tifotarget
-    guid ID #IMPLIED
+    guid ID #REQUIRED
+    targetguid ID #IMPLIED
 >
 
 <!-- Allowable HTML-Elements -->
