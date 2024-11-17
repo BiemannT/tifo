@@ -17,11 +17,24 @@
                     <link rel="stylesheet" type="text/css" href="./css/instruction_general_companyA.css" />
                     <link rel="stylesheet" type="text/css" href="./css/instruction_print.css" media="print" />
                     <link rel="stylesheet" type="text/css" href="./css/instruction_basis_screen.css" media="screen" />
-                    <title>Beispiel Betriebsanleitung</title>
+                    <title>§{tifo.general.documentTitle}</title>
                 </head>
                 <body>
-                    <header></header>
-                    <footer></footer>
+                    <header>
+                        <img src="§{tifo.general.manufacturerLogoPath}" alt="Company-Logo" />
+                        <div>
+                            <p>Betriebsanleitung</p>
+                            <p>§{tifo.uservars.productType, title="Produkt Typ Bezeichnung"}</p>
+                        </div>
+                    </header>
+                    <img src="§{tifo.uservars.productPicturePath, title='Pfad zum Produktbild'}" alt="Product Overview Picture" />
+                    <footer>
+                        <p>Auftrags-Nr.: §{tifo.uservars.OrderNumber, title='Hersteller Auftrags Nummer'}</p>
+                        <p>Kunde: §{tifo.uservars.customerCompanyName, title='Kunden Firmen Name'}</p>
+                        <p>Serien-Nr.: §{tifo.uservars.serial, title='Serien Nummer'}</p>
+                        <p>Rev. §{tifo.general.documentRevision} / §{tifo.general.documentDate}</p>
+                        <tifotarget>Vollständige Adresse des Herstellers</tifotarget>
+                    </footer>
                     <nav></nav>
                     <main></main>
                     <aside></aside>
