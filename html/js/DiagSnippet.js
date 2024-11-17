@@ -454,7 +454,7 @@ class DialogSnippets {
         // Check Validity of form elements
         if (this.#diagForm.reportValidity()) {
             // Prepare XML-Document
-            const tifoDoctype = document.implementation.createDocumentType("tifo", "", "../def/Snippet.dtd");
+            const tifoDoctype = document.implementation.createDocumentType("tifo", "", "./def/Snippet.dtd");
             let SaveDoc = document.implementation.createDocument(null, "tifo", tifoDoctype);
             let DownloadFileName = "";
             

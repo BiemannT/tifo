@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE tifo SYSTEM "../def/Snippet.dtd">
+<!DOCTYPE tifo SYSTEM "./def/Snippet.dtd">
 <tifo guid="c6616209-dfb5-4594-bcb2-60b2291682d0">
     <info>
         <description>Full Address Company A</description>
