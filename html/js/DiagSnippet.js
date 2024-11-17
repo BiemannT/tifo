@@ -573,11 +573,3 @@ class DialogSnippets {
         }).join('\r\n');
     }
 }
-
-// Initialize class
-const SnipDiag = new DialogSnippets("DiagEditSnippet");
-
-// Add Event-Handler for new snippet dialog
-document.querySelector("section.NavCatalog header div:nth-of-type(2)").addEventListener("click", () => {
-    SnipDiag.ShowDiagNewSnippet();
-})
