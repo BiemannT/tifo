@@ -30,6 +30,12 @@
     transtate (original | pending | translated) #REQUIRED
 >
 
+<!-- Target Node for another tifo snippet -->
+<!ELEMENT tifotarget (#PCDATA)>
+<!ATTLIST tifotarget
+    guid ID #IMPLIED
+>
+
 <!-- Allowable HTML-Elements -->
 <!ELEMENT a ANY>
 <!ATTLIST a
@@ -53,6 +59,12 @@
 
 <!ELEMENT body ANY>
 
+<!ELEMENT div ANY>
+<!ATTLIST div
+    id ID #IMPLIED
+    class CDATA #IMPLIED
+>
+
 <!ELEMENT footer ANY>
 <!ATTLIST footer
     id ID #IMPLIED
@@ -70,6 +82,14 @@
 <!ELEMENT html (head, body)>
 <!ATTLIST html
     lang CDATA #IMPLIED
+>
+
+<!ELEMENT img EMPTY>
+<!ATTLIST img
+    id ID #IMPLIED
+    class CDATA #IMPLIED
+    src CDATA #IMPLIED
+    alt CDATA #IMPLIED
 >
 
 <!ELEMENT link EMPTY>
