@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tifo SYSTEM "./def/Snippet.dtd">
+<tifo guid="f49a58c3-3131-4d86-8bb9-2f8f738eb907" isTemplate="">
+    <info>
+        <description>Betriebsanleitung</description>
+        <structure>
+            <level number="1">Dokumentvorlage</level>
+        </structure>
+    </info>
+    <version number="1">
+        <content lang="de" date="2024-11-17" transtate="original">
+            <html lang="de">
+                <head>
+                    <meta charset="UTF-8" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                    <meta name="referrer" content="no-referrer" />
+                    <link rel="stylesheet" type="text/css" href="./css/instruction_general_companyA.css" />
+                    <link rel="stylesheet" type="text/css" href="./css/instruction_print.css" media="print" />
+                    <link rel="stylesheet" type="text/css" href="./css/instruction_basis_screen.css" media="screen" />
+                    <title>Beispiel Betriebsanleitung</title>
+                </head>
+                <body>
+                    <header></header>
+                    <footer></footer>
+                    <nav></nav>
+                    <main></main>
+                    <aside></aside>
+                </body>
+            </html>
+        </content>
+    </version>
+</tifo>
