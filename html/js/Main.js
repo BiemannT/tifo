@@ -93,8 +93,6 @@ function ImportTextSnippets(files) {
 // Initialize the tree-view class for the text snippets
 const TreeViewSnippets = new TreeView("nav section.NavCatalog ul.TreeView");
 
-TreeViewSnippets.CreateNode("TestNode", CreateSnippetSymbol(), "NavCatalogTree/General/Test");
-
 // Setup event-handler on the import button, to start the import function
 document.querySelector("nav section.NavCatalog header div:first-of-type").addEventListener("click", () => {
     document.getElementById("SnippetImport").click();
