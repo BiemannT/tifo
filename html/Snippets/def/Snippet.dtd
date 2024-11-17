@@ -45,8 +45,64 @@
     class CDATA #IMPLIED
 >
 
+<!ELEMENT aside ANY>
+<!ATTLIST aside
+    id ID #IMPLIED
+    class CDATA #IMPLIED
+>
+
+<!ELEMENT body ANY>
+
+<!ELEMENT footer ANY>
+<!ATTLIST footer
+    id ID #IMPLIED
+    class ID #IMPLIED
+>
+
+<!ELEMENT head (meta*, link*, title?)>
+
+<!ELEMENT header ANY>
+<!ATTLIST header
+    id ID #IMPLIED
+    class CDATA #IMPLIED
+>
+
+<!ELEMENT html (head, body)>
+<!ATTLIST html
+    lang CDATA #IMPLIED
+>
+
+<!ELEMENT link EMPTY>
+<!ATTLIST link
+    rel CDATA #IMPLIED
+    type CDATA #IMPLIED
+    href CDATA #IMPLIED
+    media CDATA #IMPLIED
+>
+
+<!ELEMENT main ANY>
+<!ATTLIST main
+    id ID #IMPLIED
+    class CDATA #IMPLIED
+>
+
+<!ELEMENT meta EMPTY>
+<!ATTLIST meta
+    charset CDATA #IMPLIED
+    name CDATA #IMPLIED
+    content CDATA #IMPLIED
+>
+
+<!ELEMENT nav ANY>
+<!ATTLIST nav
+    id ID #IMPLIED
+    class CDATA #IMPLIED
+>
+
 <!ELEMENT p ANY>
 <!ATTLIST p
     id ID #IMPLIED
     class CDATA #IMPLIED
 >
+
+<!ELEMENT title (#PCDATA)>
