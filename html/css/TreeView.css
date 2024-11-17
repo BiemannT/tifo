@@ -56,12 +56,19 @@ ul.TreeView {
             /* Pictures directly inside <li> */
             height: 15px;
             margin-right: 5px;
+            margin-left: 10px;
 
             ~ p {
                 display: inline-block;
             }
         }
 
+    }
+
+    li:has(> p):hover {
+        /* Highlight selected node element */
+        background-color: yellow;
+        transition: background-color 0.4s ease-in-out;
     }
 
     li > ul {
