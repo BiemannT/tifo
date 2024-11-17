@@ -106,7 +106,7 @@
                         </svg>
                     </div>
                 </header>
-                <ul class="TreeView">
+                <ul class="TreeView" id="NavCatalogTree">
                     <li>
                         <input type="checkbox" id="NavCat1" checked="" />
                         <label for="NavCat1">
@@ -116,7 +116,7 @@
                             </svg>
                             <p>General</p>
                         </label>
-                        <ul>
+                        <ul id="NavCatalogTree/General">
                             <li>
                                 <input type="checkbox" id="NavCat1_1" checked="" />
                                 <label for="NavCat1_1">
@@ -126,7 +126,7 @@
                                     </svg>
                                     <p>Company Info</p>
                                 </label>
-                                <ul>
+                                <ul id="NavCatalogTree/General/CompanyInfo">
                                     <li>
                                         <svg class="UITextSnippet" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M100,0l90,50l-90,50l-90,-50Z" />
@@ -330,6 +330,7 @@
                 alert("No Support of FileAPI!");
             }
         </script>
+        <script type="text/javascript" src="./js/TreeView.js"></script>
         <script type="text/javascript" src="./js/DiagSnippet.js"></script>
     </body>
 </html>
