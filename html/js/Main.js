@@ -103,14 +103,18 @@ function ImportTextSnippets(files) {
                                 NodeStructure += currentValue.textContent;
                             });
 
-                            // Prepare Node symbol depending on tifo type
+                            // Prepare Node symbol depending on tifo type and assign drag-type
                             let NodeSymbol;
+                            let NodeDragType;
                             if (fileContent.documentElement.attributes.getNamedItem("isTemplate")) {
                                 // Template document
                                 NodeSymbol = CreateTemplateSnippetSymbol();
+                                NodeDragType = "application/tifo.template";
 
                             } else {
+                                // Text Snippet type
                                 NodeSymbol = CreateSnippetSymbol();
+                                NodeDragType = "application/tifo.textSnippet";
                             }
 
                             // Create node in tree view
@@ -121,6 +125,13 @@ function ImportTextSnippets(files) {
 
                             // Set double click event on <p>-element
                             NewNode.querySelector("p").setAttribute("ondblclick", "SnipDiag.ShowDiag(this.nextElementSibling)");
+
+                            // Set new node as "draggable" and add the dragstart-event
+                            NewNode.draggable = true;
+                            NewNode.addEventListener("dragstart", (event) => {
+                                event.dataTransfer.setData(NodeDragType, NodeGUID);
+                                event.dataTransfer.effectAllowed = "copy";
+                            });
 
                         } else {
                             alert(`Die ausgewählte Datei ${selFile.name} ist ungültig.`);
