@@ -23,6 +23,41 @@ function CreateSnippetSymbol() {
 }
 
 /**
+ * Prepare and returns the svg-symbol for a document template snippet.
+ * @returns Returns a svg-element with the symbol.
+ */
+function CreateTemplateSnippetSymbol() {
+    const svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    const svgPath1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    const svgPath2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    const svgLine1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    const svgLine2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+
+    svgElem.setAttribute("viewBox", "0 0 200 200");
+    svgElem.classList.add("UITemplateSnippet");
+
+    svgPath1.setAttribute("d", "M30,5h110l30,30v160h-140Z");
+    svgPath2.setAttribute("d", "M50,70h100v60h-100Z");
+
+    svgLine1.setAttribute("x1", "50");
+    svgLine1.setAttribute("x2", "150");
+    svgLine1.setAttribute("y1", "30");
+    svgLine1.setAttribute("y2", "30");
+
+    svgLine2.setAttribute("x1", "50");
+    svgLine2.setAttribute("x2", "150");
+    svgLine2.setAttribute("y1", "170");
+    svgLine2.setAttribute("y2", "170");
+
+    svgElem.appendChild(svgPath1);
+    svgElem.appendChild(svgPath2);
+    svgElem.appendChild(svgLine1);
+    svgElem.appendChild(svgLine2);
+
+    return svgElem;
+}
+
+/**
  * Loads the content of several xml-files into the navigation text catalog.
  * Only valid xml files with doctype "tifo" will be imported.
  * Otherwise an error will occour in the console, also if the xml parser fires an error during import.
@@ -68,8 +103,18 @@ function ImportTextSnippets(files) {
                                 NodeStructure += currentValue.textContent;
                             });
 
+                            // Prepare Node symbol depending on tifo type
+                            let NodeSymbol;
+                            if (fileContent.documentElement.attributes.getNamedItem("isTemplate")) {
+                                // Template document
+                                NodeSymbol = CreateTemplateSnippetSymbol();
+
+                            } else {
+                                NodeSymbol = CreateSnippetSymbol();
+                            }
+
                             // Create node in tree view
-                            TreeViewSnippets.CreateNode(NodeName, CreateSnippetSymbol(), NodeStructure, fileContent.documentElement);
+                            TreeViewSnippets.CreateNode(NodeName, NodeSymbol, NodeStructure, fileContent.documentElement);
 
                             // Search appended entry
                             const NewNode = document.querySelector(`nav tifo[guid="${NodeGUID}"]`).parentElement;

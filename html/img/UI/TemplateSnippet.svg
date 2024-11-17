@@ -1,0 +1,6 @@
+<svg class="UITemplateSnippet" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30,5h110l30,30v160h-140Z" />
+    <path d="M50,70h100v60h-100Z" />
+    <line x1="50" x2="150" y1="30" y2="30" />
+    <line x1="50" x2="150" y1="170" y2="170" />
+</svg>

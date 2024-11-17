@@ -4,6 +4,7 @@
 <!ELEMENT tifo (info, version+)>
     <!ATTLIST tifo
         guid ID #REQUIRED
+        isTemplate CDATA #IMPLIED
     >
 
 <!-- General Meta-Information for the snippet -->

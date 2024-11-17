@@ -194,4 +194,25 @@ nav {
             stroke-width: 30px;
         }
     }
+
+    svg.UITemplateSnippet {
+        path,
+        line {
+            stroke: black;
+            stroke-width: 5;
+        }
+
+        path:first-of-type {
+            fill: antiquewhite;
+            stroke-linejoin: round;
+        }
+
+        path:last-of-type {
+            fill: var(--NavBackgroundColor);
+        }
+
+        line {
+            stroke-dasharray: 15, 15;
+        }
+    }
 }

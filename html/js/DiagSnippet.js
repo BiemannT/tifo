@@ -364,6 +364,11 @@ class DialogSnippets {
         this.#diagForm.Description.value = tifoData.querySelector("info description").textContent;
         this.#diagForm.Guid.value = tifoData.getAttribute("guid");
 
+        // Select checkbox "Template"
+        if (tifoData.attributes.getNamedItem("isTemplate")) {
+            this.#diagForm.DocTemplate.checked = true;
+        }
+
         // Make GUID-field disabled, if value is available
         if (this.#diagForm.Guid.value !== "") {
             this.#diagForm.Guid.disabled = true;
@@ -464,6 +469,11 @@ class DialogSnippets {
 
             // Set "guid"-attribute
             SaveDoc.documentElement.setAttribute("guid", this.#diagForm.Guid.value);
+
+            // Set optionally the "isTemplate"-attribute
+            if (this.#diagForm.DocTemplate.checked) {
+                SaveDoc.documentElement.setAttribute("isTemplate", "");
+            }
 
             // Set <info>-Element
             const tifoInfo = SaveDoc.createElement("info");
