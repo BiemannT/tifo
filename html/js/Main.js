@@ -114,7 +114,7 @@ function ImportTextSnippets(files) {
                             } else {
                                 // Text Snippet type
                                 NodeSymbol = CreateSnippetSymbol();
-                                NodeDragType = "application/tifo.textSnippet";
+                                NodeDragType = "application/tifo.textsnippet";
                             }
 
                             // Create node in tree view
@@ -165,4 +165,34 @@ const SnipDiag = new DialogSnippets("DiagEditSnippet");
 // Add Event-Handler for new snippet dialog
 document.querySelector("section.NavCatalog header div:nth-of-type(2)").addEventListener("click", () => {
     SnipDiag.ShowDiagNewSnippet();
-})
+});
+
+// Initialize the DocumentContainer class
+const DocCont = new DocumentContainer();
+
+function TemplateDragOn(event) {
+    if (event instanceof DragEvent && event.dataTransfer.types.includes("application/tifo.template")) {
+        document.getElementById("tifoTemplateContainer").classList.add("DropAllow");
+        event.preventDefault();
+    }
+}
+
+// Add Dragging Event-Handler for the template container
+document.getElementById("tifoTemplateContainer").addEventListener("dragenter", TemplateDragOn);
+
+document.getElementById("tifoTemplateContainer").addEventListener("dragover", (event) => {
+    if (event.dataTransfer.types.includes("application/tifo.template")) {
+        event.preventDefault();
+    }
+});
+
+document.getElementById("tifoTemplateContainer").addEventListener("dragleave", (event) => {
+    document.getElementById("tifoTemplateContainer").classList.remove("DropAllow");
+});
+
+document.getElementById("tifoTemplateContainer").addEventListener("drop", (event) => {
+    event.preventDefault();
+    document.getElementById("tifoTemplateContainer").textContent = event.dataTransfer.getData("application/tifo.template");
+    document.getElementById("tifoTemplateContainer").classList.remove("DropAllow");
+    document.querySelector("main div.tifoDocument").appendChild(DocCont.LoadTifoContent("nav tifo[guid=f49a58c3-3131-4d86-8bb9-2f8f738eb907] content"));
+});

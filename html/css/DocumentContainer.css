@@ -1,0 +1,154 @@
+@charset "UTF-8";
+
+/*****************************************************************************/
+/** This Stylesheet specify stylings to present the main document container **/
+/*****************************************************************************/
+
+#tifoTemplateContainer {
+    width: 80%;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    border-style: dotted;
+    border-width: 3px;
+    border-color: gray;
+    border-radius: 20px;
+
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 400;
+
+    background-color: antiquewhite;
+
+    &.DropAllow {
+        box-shadow: 0 0 10px 5px var(--NavFocusedElement);
+    }
+}
+
+.tifoDocument {
+    padding: 20px;
+    background-color: slategray;
+
+    header {
+        display: flex;
+        flex-direction: row;
+        padding: 3px 15px;
+        background-color: var(--NavBackgroundColor);
+        color: var(--NavForegroundColor);
+        font-size: 1.2rem;
+
+        *:not(:first-child) {
+            margin-left: 15px;
+        }
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    ul:not(.tifoDocRoot) {
+        /* Styling for ul-lists, not the first layer */
+        padding-left: 20px;
+
+        border-left-style: dotted;
+        border-left-width: 2px;
+        border-left-color: beige;
+    }
+
+    input[type='checkbox'] {
+        display: none;
+    }
+
+    input[type="checkbox"] + ul {
+        /* Hide content, if next checkbox isn't checked */
+        height: 0px;
+        overflow: hidden;
+        box-shadow: 0px 0px 5px 2px lightblue;
+    }
+
+    input:checked + ul {
+        /* Show content if checkbox is checked */
+        height: fit-content;
+        box-shadow: none;
+    }
+
+    label {
+        cursor: pointer;
+        text-decoration-line: underline;
+    }
+
+    .tifoTarget {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-style: dotted;
+        border-color: beige;
+
+        .DropAllow {
+            box-shadow: 0 0 10px 5px var(--NavFocusedElement);
+        }
+    }
+
+    /* Styling for tagging */
+    li.Tag::before,
+    li.EmptyTag::before,
+    li.OnerowTag span.TagName:first-of-type:before {
+        content: "<";
+        color: yellow;
+    }
+
+    li.EndTag::before,
+    li.OnerowTag span.TagName:last-of-type::before {
+        content: "</";
+        color: yellow;
+    }
+
+    li.Tag::after,
+    li.EndTag::after,
+    li.OnerowTag span.TagName::after {
+        content: ">";
+        color: yellow;
+    }
+
+    li.EmptyTag::after {
+        content: " />";
+        color: yellow;
+    }
+
+    li:has(span.tifoVar) {
+        border-right-width: 3px;
+        border-right-style: solid;
+        border-right-color: aquamarine;
+    }
+
+    span.TagName {
+        color: yellow;
+    }
+
+    span.Attribute {
+        color: lightskyblue;
+        margin-left: 5px;
+    }
+
+    span.AttributeValue {
+        color: orange;
+    }
+
+    span.AttributeValue::before {
+        content: '="';
+    }
+
+    span.AttributeValue::after {
+        content: '"';
+    }
+
+    span.tifoVar {
+        color: aquamarine;
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+    }
+
+}

@@ -32,4 +32,6 @@ body > main {
     top: 100px;
     right: 0px;
     bottom: 0px;
+
+    overflow: auto;
 }
