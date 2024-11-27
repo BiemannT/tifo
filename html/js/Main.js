@@ -194,5 +194,5 @@ document.getElementById("tifoTemplateContainer").addEventListener("drop", (event
     event.preventDefault();
     document.getElementById("tifoTemplateContainer").textContent = event.dataTransfer.getData("application/tifo.template");
     document.getElementById("tifoTemplateContainer").classList.remove("DropAllow");
-    document.querySelector("main div.tifoDocument").appendChild(DocCont.LoadTifoContent("nav tifo[guid=f49a58c3-3131-4d86-8bb9-2f8f738eb907] content"));
+    document.querySelector("main div.tifoDocument").appendChild(DocCont.LoadTifoContent("nav tifo[guid=f49a58c3-3131-4d86-8bb9-2f8f738eb907]"));
 });

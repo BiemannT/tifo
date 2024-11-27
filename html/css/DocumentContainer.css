@@ -92,6 +92,18 @@
         }
     }
 
+    .tifoHeader {
+        /* Styling for document title information */
+        padding: 3px 15px;
+        background-color: var(--NavBackgroundColor);
+        color: var(--NavForegroundColor);
+        font-size: 1.2rem;
+
+        data {
+            margin-right: 10px;
+        }
+    }
+
     /* Styling for tagging */
     li.Tag::before,
     li.EmptyTag::before,

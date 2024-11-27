@@ -10,11 +10,44 @@ class DocumentContainer {
         this.#DocLevelCounter = 0;
     }
 
-    LoadTifoContent(ContentSelector) {
-        const LoadContent = document.querySelector(ContentSelector);
+    /**
+     * Loads the content of a Tifo-Template or Snippet and prepare a representation of the content and returns it.
+     * The first version in the original language will be selected.
+     * @param {string} TifoSelector A HTML Selector to the main Tifo-Element.
+     * @returns Returns a HTMLUList-Element with a representation of the tifo content.
+     */
+    LoadTifoContent(TifoSelector) {
+        // Prepare elements
+        const LoadContent = document.querySelector(TifoSelector).querySelector("version:first-of-type content[transtate=original]");
         const ListContainer = document.createElement("ul");
+        const ListHeader = document.createElement("li");
+        const ListHeaderDocName = document.createElement("data");
+        const ListHeaderVersion = document.createElement("data");
+
         ListContainer.className = "tifoDocRoot";
 
+        // Set document Path as first header information
+        ListHeader.className = "tifoHeader";
+        ListHeaderDocName.value = document.querySelector(TifoSelector).getAttribute("guid");
+        ListHeaderDocName.textContent = "Dokument: /";
+
+        document.querySelector(TifoSelector).querySelectorAll("info structure level").forEach(function (currentValue, currentIndex, listObj) {
+            ListHeaderDocName.textContent += currentValue.textContent;
+            ListHeaderDocName.textContent += "/";
+        });
+        ListHeaderDocName.textContent += document.querySelector(TifoSelector).querySelector("info description").textContent;
+
+        // Set document Version as second header information
+        ListHeaderVersion.value = document.querySelector(TifoSelector).querySelector("version:first-of-type").getAttribute("number");
+        ListHeaderVersion.textContent = "Version: ";
+        ListHeaderVersion.textContent += ListHeaderVersion.value;
+
+        // Append Header information to the output list
+        ListHeader.appendChild(ListHeaderDocName);
+        ListHeader.appendChild(ListHeaderVersion);
+        ListContainer.appendChild(ListHeader);
+
+        // Load the content of the tifo-element
         if (LoadContent instanceof Element && LoadContent.childElementCount > 0) {
             this.#IdentifyCreateNode(LoadContent.firstElementChild, ListContainer);
         }
@@ -214,7 +247,7 @@ class DocumentContainer {
                 const targetGUID = event.dataTransfer.getData("application/tifo.textsnippet");
 
                 // Load selected content
-                const NewContent = this.LoadTifoContent(`nav tifo[guid=${targetGUID}] content`);
+                const NewContent = this.LoadTifoContent(`nav tifo[guid=${targetGUID}]`);
 
                 // Insert new content before div.tifoTargetArea
                 const targetParent = event.currentTarget.parentElement;
