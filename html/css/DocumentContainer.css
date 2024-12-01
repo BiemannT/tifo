@@ -4,30 +4,6 @@
 /** This Stylesheet specify stylings to present the main document container **/
 /*****************************************************************************/
 
-#tifoTemplateContainer {
-    width: 80%;
-    margin-top: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 50px;
-    padding-bottom: 50px;
-
-    border-style: dotted;
-    border-width: 3px;
-    border-color: gray;
-    border-radius: 20px;
-
-    text-align: center;
-    font-size: 1.4rem;
-    font-weight: 400;
-
-    background-color: antiquewhite;
-
-    &.DropAllow {
-        box-shadow: 0 0 10px 5px var(--NavFocusedElement);
-    }
-}
-
 .tifoDocument {
     padding: 20px;
     background-color: slategray;
@@ -87,9 +63,6 @@
         border-style: dotted;
         border-color: beige;
 
-        .DropAllow {
-            box-shadow: 0 0 10px 5px var(--NavFocusedElement);
-        }
     }
 
     .tifoHeader {
@@ -102,6 +75,19 @@
         data {
             margin-right: 10px;
         }
+    }
+
+    .tifoTargetArea {
+        text-align: center;
+    }
+
+    .DropAllow {
+        box-shadow: inset 0 0 15px 5px var(--NavFocusedElement);
+    }
+
+    &:has(> .tifoDocRoot) > .tifoTargetArea {
+        /* Hide Dropzone for document templates, if a document is loaded */
+        display: none;
     }
 
     /* Styling for tagging */

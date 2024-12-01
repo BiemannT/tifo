@@ -4,7 +4,6 @@ class DocumentContainer {
 
     /**
      * Initializes the DocumentContainer-class.
-     * @param {String} ContainerSelector Path Selector to the main container element for the document.
      */
     constructor () {
         this.#DocLevelCounter = 0;
