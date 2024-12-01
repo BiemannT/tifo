@@ -22,6 +22,9 @@ class DocumentContainer {
         const ListHeader = document.createElement("li");
         const ListHeaderDocName = document.createElement("data");
         const ListHeaderVersion = document.createElement("data");
+        const svgDelete = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        const svgDeletePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+
 
         ListContainer.className = "tifoDocRoot";
 
@@ -41,9 +44,20 @@ class DocumentContainer {
         ListHeaderVersion.textContent = "Version: ";
         ListHeaderVersion.textContent += ListHeaderVersion.value;
 
+        // Set delete button
+        svgDelete.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        svgDelete.setAttribute("viewBox", "0 -960 960 960");
+        svgDelete.addEventListener("click", (event) => {
+            ListContainer.parentElement.removeChild(ListContainer);
+        });
+        svgDeletePath.setAttribute("d", "M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z");
+        
+        svgDelete.appendChild(svgDeletePath);
+
         // Append Header information to the output list
         ListHeader.appendChild(ListHeaderDocName);
         ListHeader.appendChild(ListHeaderVersion);
+        ListHeader.appendChild(svgDelete);
         ListContainer.appendChild(ListHeader);
 
         // Load the content of the tifo-element

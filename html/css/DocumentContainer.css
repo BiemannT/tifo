@@ -75,6 +75,20 @@
         data {
             margin-right: 10px;
         }
+
+        svg {
+            height: 1.2rem;
+            position: relative;
+            top: 3px;
+            fill: var(--NavForegroundColor);
+            cursor: pointer;
+            transition: fill 0.4s ease-out;
+        }
+
+        svg:hover {
+            fill: var(--NavFocusedElement);
+            transition: fill 0.4s ease-in;
+        }
     }
 
     .tifoTargetArea {
